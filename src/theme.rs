@@ -2,16 +2,36 @@ use console::{Style, StyledObject};
 use dialoguer::theme::Theme;
 use std::fmt;
 
-pub struct Colored {
+/// Provides a colored theme for dialoguer
+///
+/// # Examples
+///
+/// ```
+/// use dialoguer::Confirmation;
+/// use enquirer::ColoredTheme;
+///
+/// fn main() {
+///     let prompt = Confirmation::with_theme(&ColoredTheme::default())
+///         .with_text("Do you want to continue?")
+///         .with_default(true);
+///
+///     if prompt.interact()? {
+///         println!("Looks like you want to continue");
+///     } else {
+///         println!("nevermind then :(");
+///     }
+/// }
+/// ```
+pub struct ColoredTheme {
     brblack: Style,
     prompts_style: Style,
     cyan: Style,
     green: Style,
 }
 
-impl Default for Colored {
+impl Default for ColoredTheme {
     fn default() -> Self {
-        Colored {
+        ColoredTheme {
             brblack: Style::new().black().bold(),
             prompts_style: Style::new().bold(),
             cyan: Style::new().cyan(),
@@ -20,7 +40,7 @@ impl Default for Colored {
     }
 }
 
-impl Colored {
+impl ColoredTheme {
     fn empty(&self) -> (StyledObject<&str>, StyledObject<&str>) {
         (
             self.prompts_style.apply_to(""),
@@ -29,7 +49,7 @@ impl Colored {
     }
 }
 
-impl Theme for Colored {
+impl Theme for ColoredTheme {
     fn format_confirmation_prompt(
         &self,
         f: &mut dyn fmt::Write,

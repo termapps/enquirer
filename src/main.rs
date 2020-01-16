@@ -6,7 +6,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "enquirer")]
-/// Command Line Utility for Interactive Prompts
+/// Command Line Utility for Stylish Interactive Prompts
 struct Enquirer {
     #[structopt(subcommand)]
     cmd: EnquirerSubcommand,

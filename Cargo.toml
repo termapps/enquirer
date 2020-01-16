@@ -3,10 +3,27 @@ name = "enquirer"
 version = "0.1.0"
 authors = ["Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"]
 edition = "2018"
+description = "Command Line Utility for Stylish Interactive Prompts (like fzf but for all types)"
+categories = ["command-line-utilities", "development-tools"]
+repository = "https://github.com/termapps/enquirer"
+readme = "README.md"
+license = "MIT"
+include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "*.md"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+travis-ci = { repository = "termapps/enquirer" }
+maintenance = { status = "actively-developed" }
 
 [dependencies]
 dialoguer = "0.5.0"
 structopt = "0.3.7"
 console = "0.9.1"
+
+[[bin]]
+name = "enquirer"
+path = "src/main.rs"
+
+[lib]
+name = "enquirer"
+path = "src/lib.rs"
+doctest = false
