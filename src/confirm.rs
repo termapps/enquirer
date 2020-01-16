@@ -13,10 +13,10 @@ pub struct Confirm {
     #[structopt(short, long)]
     /// Default value for the prompt is `true`
     default: bool,
-
-    #[structopt(short, long)]
-    /// Command to validate the submitted value
-    validate: Option<String>,
+    // TODO: Validation
+    // #[structopt(short, long)]
+    // /// Command to validate the submitted value
+    // validate: Option<String>,
 }
 
 impl Confirm {

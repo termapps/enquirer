@@ -60,7 +60,23 @@ Download and unarchive the binary then put the executable in `$PATH`.
 
 ### Command Line Utility
 
-See [prompts][#-prompts] for information on subcommands.
+The main reason I created this tool is to use it as an stylish interactive and user-friendly prompt for bash scripting.
+
+```bash
+#!/bin/bash
+
+TRUE="true"
+CONFIRM=$(enquirer confirm -m "Do you want to continue?" -d)
+
+if [ "$TRUE" = "$CONFIRM" ]; then
+    echo "Continuing ..."
+else
+    echo "Thanks for using this tool. Quitting ..."
+    exit
+fi
+```
+
+See [prompts][#-prompts] for more information on subcommands.
 
 ```
 enquirer 0.1.0
@@ -101,6 +117,34 @@ fn main() {
 ```
 
 ## ❯ Prompts
+
+* [Confirm Prompt](#confirm-prompt)
+
+### Confirm Prompt
+
+Prompt that returns `true` or `false` (as strings).
+
+<p align="center">
+	<img src="media/confirm.svg" alt="Enquirer Confirm Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer 0.1.0
+Prompt that returns `true` or `false`
+
+USAGE:
+    enquirer confirm [FLAGS] [OPTIONS] --message <message>
+
+FLAGS:
+    -d, --default    Default value for the prompt is `true`
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+    -m, --message <message>      Message for the prompt
+```
 
 ## ❯ Changelog
 
