@@ -7,15 +7,27 @@ use structopt::StructOpt;
 #[derive(Debug, StructOpt)]
 #[structopt(name = "enquirer")]
 /// Command Line Utility for Interactive Prompts
-enum Enquirer {
+struct Enquirer {
+    #[structopt(subcommand)]
+    cmd: EnquirerSubcommand,
+
+    #[structopt(long)]
+    /// Disable colors in the prompt
+    no_color: bool,
+}
+
+#[derive(Debug, StructOpt)]
+enum EnquirerSubcommand {
     Confirm(confirm::Confirm),
 }
 
 fn main() {
-    set_colors_enabled(true);
+    let program = Enquirer::from_args();
 
-    match Enquirer::from_args() {
-        Enquirer::Confirm(x) => x.run(),
+    set_colors_enabled(!program.no_color);
+
+    match program.cmd {
+        EnquirerSubcommand::Confirm(x) => x.run(),
     }
     .unwrap();
 }
