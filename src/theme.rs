@@ -1,21 +1,21 @@
 use console::{Style, StyledObject};
-use dialoguer::theme::{ColorfulTheme, Theme};
+use dialoguer::theme::Theme;
 use std::fmt;
 
 pub struct Colored {
-    styles: ColorfulTheme,
+    brblack: Style,
     prompts_style: Style,
-    question_style: Style,
-    tick_style: Style,
+    cyan: Style,
+    green: Style,
 }
 
 impl Default for Colored {
     fn default() -> Self {
         Colored {
-            styles: ColorfulTheme::default(),
+            brblack: Style::new().black().bold(),
             prompts_style: Style::new().bold(),
-            question_style: Style::new().cyan(),
-            tick_style: Style::new().green(),
+            cyan: Style::new().cyan(),
+            green: Style::new().green(),
         }
     }
 }
@@ -38,23 +38,17 @@ impl Theme for Colored {
     ) -> fmt::Result {
         let details = match default {
             None => self.empty(),
-            Some(true) => (
-                self.styles.defaults_style.apply_to("(Y/n)"),
-                self.styles.values_style.apply_to("true"),
-            ),
-            Some(false) => (
-                self.styles.defaults_style.apply_to("(y/N)"),
-                self.styles.values_style.apply_to("false"),
-            ),
+            Some(true) => (self.brblack.apply_to("(Y/n)"), self.cyan.apply_to("true")),
+            Some(false) => (self.brblack.apply_to("(y/N)"), self.cyan.apply_to("false")),
         };
 
         write!(
             f,
             "{} {} {} {} {} ",
-            self.question_style.apply_to("?"),
+            self.cyan.apply_to("?"),
             self.prompts_style.apply_to(prompt),
             details.0,
-            self.styles.defaults_style.apply_to("›"),
+            self.brblack.apply_to("›"),
             details.1,
         )?;
 
@@ -70,16 +64,11 @@ impl Theme for Colored {
         write!(
             f,
             "{} {} {} {}",
-            self.tick_style.apply_to("✔"),
+            self.green.apply_to("✔"),
             self.prompts_style.apply_to(prompt),
-            self.styles.defaults_style.apply_to("·"),
-            {
-                if selection {
-                    self.styles.yes_style.apply_to("true")
-                } else {
-                    self.styles.no_style.apply_to("false")
-                }
-            }
+            self.brblack.apply_to("·"),
+            self.green
+                .apply_to(if selection { "true" } else { "false" }),
         )?;
 
         Ok(())
