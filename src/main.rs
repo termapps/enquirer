@@ -1,5 +1,6 @@
 mod confirm;
 mod input;
+mod secret;
 mod theme;
 
 use console::set_colors_enabled;
@@ -21,6 +22,7 @@ struct Enquirer {
 enum EnquirerSubcommand {
     Confirm(confirm::Confirm),
     Input(input::Input),
+    Secret(secret::Secret),
 }
 
 fn main() {
@@ -31,6 +33,7 @@ fn main() {
     match program.cmd {
         EnquirerSubcommand::Confirm(x) => x.run(),
         EnquirerSubcommand::Input(x) => x.run(),
+        EnquirerSubcommand::Secret(x) => x.run(),
     }
     .unwrap();
 }

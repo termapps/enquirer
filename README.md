@@ -92,6 +92,7 @@ SUBCOMMANDS:
     confirm    Prompt that returns `true` or `false`
     help       Prints this message or the help of the given subcommand(s)
     input      Prompt that takes user input and returns a string
+    secret     Prompt that takes user input, hides it from the terminal, and returns a string
 ```
 
 ### Library
@@ -119,6 +120,7 @@ fn main() {
 
 * [Confirm Prompt](#confirm-prompt)
 * [Input Prompt](#input-prompt)
+* [Secret Prompt](#secret-prompt)
 
 ### Confirm Prompt
 
@@ -170,6 +172,34 @@ FLAGS:
 
 OPTIONS:
     -d, --default <default>    Default value for the prompt
+    -m, --message <message>    Message for the prompt
+```
+
+### Secret Prompt
+
+Prompt that takes user input, hides it from the terminal, and returns a string
+
+<p align="center">
+  <img src="media/secret.svg" alt="Enquirer Secret Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer-secret 0.1.0
+Prompt that takes user input, hides it from the terminal, and returns a string
+
+USAGE:
+    enquirer secret [FLAGS] [OPTIONS] --message <message>
+
+FLAGS:
+    -a, --allow-empty    Allow empty secret
+    -h, --help           Prints help information
+    -V, --version        Prints version information
+
+OPTIONS:
+    -c, --confirm <confirm>    Enable confirmation prompt with this message
+    -e, --error <error>        Error message when secrets doesn't match during confirmation
     -m, --message <message>    Message for the prompt
 ```
 

@@ -24,19 +24,21 @@ use std::fmt;
 /// }
 /// ```
 pub struct ColoredTheme {
-    brblack: Style,
+    defaults_style: Style,
     prompts_style: Style,
-    cyan: Style,
-    green: Style,
+    prefixes_style: Style,
+    values_style: Style,
+    errors_style: Style,
 }
 
 impl Default for ColoredTheme {
     fn default() -> Self {
         ColoredTheme {
-            brblack: Style::new().black().bold(),
+            defaults_style: Style::new().black().bold(),
             prompts_style: Style::new().bold(),
-            cyan: Style::new().cyan(),
-            green: Style::new().green(),
+            prefixes_style: Style::new().cyan(),
+            values_style: Style::new().green(),
+            errors_style: Style::new().red(),
         }
     }
 }
@@ -51,6 +53,18 @@ impl ColoredTheme {
 }
 
 impl Theme for ColoredTheme {
+    // Error
+    fn format_error(&self, f: &mut dyn fmt::Write, err: &str) -> fmt::Result {
+        write!(
+            f,
+            "{} {}",
+            self.errors_style.apply_to("✘"),
+            self.errors_style.apply_to(err)
+        )?;
+
+        Ok(())
+    }
+
     // Input
     fn format_singleline_prompt(
         &self,
@@ -66,10 +80,10 @@ impl Theme for ColoredTheme {
         write!(
             f,
             "{} {}{} {} ",
-            self.cyan.apply_to("?"),
+            self.prefixes_style.apply_to("?"),
             self.prompts_style.apply_to(prompt),
-            self.brblack.apply_to(details),
-            self.brblack.apply_to("›"),
+            self.defaults_style.apply_to(details),
+            self.defaults_style.apply_to("›"),
         )?;
 
         Ok(())
@@ -85,10 +99,10 @@ impl Theme for ColoredTheme {
         write!(
             f,
             "{} {} {} {}",
-            self.green.apply_to("✔"),
+            self.values_style.apply_to("✔"),
             self.prompts_style.apply_to(prompt),
-            self.brblack.apply_to("·"),
-            self.green.apply_to(selection),
+            self.defaults_style.apply_to("·"),
+            self.values_style.apply_to(selection),
         )?;
 
         Ok(())
@@ -103,17 +117,23 @@ impl Theme for ColoredTheme {
     ) -> fmt::Result {
         let details = match default {
             None => self.empty(),
-            Some(true) => (self.brblack.apply_to("(Y/n)"), self.cyan.apply_to("true")),
-            Some(false) => (self.brblack.apply_to("(y/N)"), self.cyan.apply_to("false")),
+            Some(true) => (
+                self.defaults_style.apply_to("(Y/n)"),
+                self.prefixes_style.apply_to("true"),
+            ),
+            Some(false) => (
+                self.defaults_style.apply_to("(y/N)"),
+                self.prefixes_style.apply_to("false"),
+            ),
         };
 
         write!(
             f,
             "{} {} {} {} {} ",
-            self.cyan.apply_to("?"),
+            self.prefixes_style.apply_to("?"),
             self.prompts_style.apply_to(prompt),
             details.0,
-            self.brblack.apply_to("›"),
+            self.defaults_style.apply_to("›"),
             details.1,
         )?;
 
@@ -130,13 +150,22 @@ impl Theme for ColoredTheme {
         write!(
             f,
             "{} {} {} {}",
-            self.green.apply_to("✔"),
+            self.values_style.apply_to("✔"),
             self.prompts_style.apply_to(prompt),
-            self.brblack.apply_to("·"),
-            self.green
+            self.defaults_style.apply_to("·"),
+            self.values_style
                 .apply_to(if selection { "true" } else { "false" }),
         )?;
 
         Ok(())
+    }
+
+    // Password Selection
+    fn format_password_prompt_selection(
+        &self,
+        f: &mut dyn fmt::Write,
+        prompt: &str,
+    ) -> fmt::Result {
+        self.format_single_prompt_selection(f, prompt, "********")
     }
 }
