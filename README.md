@@ -36,7 +36,7 @@ Get started with Enquirer, the most powerful command line utility for creating i
 ### With [Homebrew](https://brew.sh/)
 
 ```
-$ brew tap termapps/tap https://github.com/termapps/enquirer
+$ brew tap termapps/enquirer https://github.com/termapps/enquirer
 $ brew install enquirer
 ```
 
