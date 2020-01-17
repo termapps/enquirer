@@ -1,3 +1,4 @@
+os: linux
 language: rust
 rust: stable
 cache: cargo
@@ -5,8 +6,6 @@ env:
   global:
     - NAME=enquirer
     - PKG_CONFIG_ALLOW_CROSS=1
-    - SHARD=test
-    - EMAIL=pavan.sss1991@gmail.com
 jobs:
   allow_failures:
     - env:
@@ -15,12 +14,15 @@ jobs:
   include:
     - os: osx
       env:
+        - SHARD=test
         - TARGET=x86_64-apple-darwin
     - os: linux
       env:
+        - SHARD=test
         - TARGET=x86_64-unknown-linux-gnu
     - os: linux
       env:
+        - SHARD=test
         - TARGET=i686-unknown-linux-gnu
       addons:
         apt:
@@ -30,8 +32,7 @@ jobs:
           update: true
       after_deploy: skip
     - os: linux
-      env:
-        - SHARD=lint
+      if: tag IS blank
       before_script:
         - rustup component add clippy
         - rustup component add rustfmt
@@ -39,6 +40,18 @@ jobs:
         - echo "Checking codebase with Clippy release `cargo clippy --version`."
         - cargo clippy --all --profile test
         - cargo fmt -- --check
+    - stage: homebrew
+      os: linux
+      language: shell
+      if: tag IS present
+      env:
+        - EMAIL=pavan.sss1991@gmail.com
+      before_script: skip
+      script:
+        - cd ..
+        - git clone --depth 1 https://pksunkara:$GITHUB_TOKEN@github.com/termapps/homebrew-tap
+        - cd homebrew-tap
+        - bash update.sh
 before_script:
   - rustup target add $TARGET
 script:
@@ -48,9 +61,9 @@ before_deploy:
   # TODO: Generate man page from clap
   - cargo build --target $TARGET --release
   - export BUILD_NAME=$NAME-$TRAVIS_TAG-$TARGET
-  - mkdir target/$BUILD_NAME
-  - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 target/$BUILD_NAME
-  - zip $BUILD_NAME.zip -r target/$BUILD_NAME
+  - mkdir $BUILD_NAME
+  - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 $BUILD_NAME
+  - zip $BUILD_NAME.zip -r $BUILD_NAME
 deploy:
   edge: true
   provider: releases
