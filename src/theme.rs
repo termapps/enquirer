@@ -2,6 +2,7 @@ use console::{Style, StyledObject};
 use dialoguer::theme::Theme;
 use std::fmt;
 
+#[allow(clippy::needless_doctest_main)]
 /// Provides a colored theme for dialoguer
 ///
 /// # Examples

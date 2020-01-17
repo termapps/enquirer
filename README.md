@@ -7,19 +7,13 @@
 </p>
 
 <br>
-<br>
 
 <p align="center">
 	<b>Command Line Utility for Stylish Interactive Prompts (like fzf but for all types)</b>
-</p>
-
-<br>
-
-<p align="center">
+	<br>
 	<sub>(Uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
 
-<br>
 <br>
 
 ## ❯ Getting started
@@ -39,7 +33,7 @@ Get started with Enquirer, the most powerful command line utility for creating i
 ### With [Homebrew](https://brew.sh/)
 
 ```
-$ brew tap "termapps/enquirer" "https://github.com/termapps/enquirer"
+$ brew tap termapps/enquirer "https://github.com/termapps/enquirer"
 $ brew install enquirer
 ```
 
@@ -51,9 +45,10 @@ This is recommended way for installation on macOS since updating to the new vers
 $ cargo install enquirer
 ```
 
-### As a single executable binary
+### Direct
 
-Pre-built binary executables are available at [release page](https://github.com/termapps/enquirer/releases) for macOS (64bit), Linux (64bit, 32bit).
+Pre-built binary executables are available at [releases page](https://github.com/termapps/enquirer/releases) for macOS (64bit), Linux (64bit, 32bit).
+
 Download and unarchive the binary then put the executable in `$PATH`.
 
 ## ❯ Usage
@@ -76,7 +71,7 @@ else
 fi
 ```
 
-See [prompts][#-prompts] for more information on subcommands.
+See [prompts](#-prompts) for more information on subcommands.
 
 ```
 enquirer 0.1.0

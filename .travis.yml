@@ -1,0 +1,52 @@
+sudo: false
+language: rust
+rust: stable
+cache: cargo
+env:
+  global:
+    - NAME=enquirer
+    - PKG_CONFIG_ALLOW_CROSS=1
+matrix:
+  allow_failures:
+    - env:
+        - SHARD=lint
+  fast_finish: true
+  include:
+    - os: osx
+      env:
+        - TARGET=x86_64-apple-darwin
+    - os: linux
+      env:
+        - TARGET=x86_64-unknown-linux-gnu
+    - os: linux
+      env:
+        - TARGET=i686-unknown-linux-gnu
+    - os: linux
+      env:
+        - SHARD=lint
+      before_script:
+        - rustup component add clippy
+        - rustup component add rustfmt
+      script:
+        - echo "Checking codebase with Clippy release `cargo clippy --version`."
+        - cargo clippy --all --profile test
+        - cargo fmt -- --check
+      # deploy: skip
+before_script:
+  - rustup target add $TARGET
+script:
+  - cargo build --target $TARGET
+  - cargo test
+before_deploy:
+  - cargo build --target $TARGET --release
+  - mkdir "${NAME}-${TRAVIS_TAG}-${TARGET}"
+  - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 "${NAME}-${TRAVIS_TAG}-${TARGET}"
+  - zip "${NAME}-${TRAVIS_TAG}-${TARGET}.zip" -r "${NAME}-${TRAVIS_TAG}-${TARGET}"
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: qSshc7lM1LKfyEREbF3pmsaDVotAyRiPCsUK2dKCoLyuTbgA4s1NbZhw5nekq5sm0lSxnVYxfIzBeP77N62lgUigH/sBgUh1YPLkqECJ8EV0R/Rr3sKhg1uJ0/gthcKO3CZ2VCEecA0X65FA4uXFMqSxcXSLDI6B1vfkHh+2zKWZg8eiDkF1BrSl/OsWqgAosP/87mt79eMKGHeqXAOy0vdDGKoJsiGHbc5G2L9OSMzGTpDWUDaIFEwlgCEEYYjVg30Na6uqbr1W/vS+28G2y9YuJspUAtYYaMAI8FxEYmN6eEAjvQRkRNomBpPw78Vy0t9thogIZEvJRK8Z4uSHEuAlYjv0FvCFy44N5aYBIMSbKDN7Q1lltD3xToLVALaOBikNFDY9YwGxZIdLQ8MWQOqrZym9Hwy0MnLKuOCYxgW7Hz4ydJlJYFt396pquYcjEN5gDDOabXXAbHNWPJt0OmV+QwdiexeNcJMeWHS9bLA+2MfrWeFCTT/HSoExZ3N6oARLXbXJPkl5shlG7RyNz1A2STDRvH48CSUOjiz91UYpG5rYlVUpDdaA13Bd2V2oCaiOrkO4bCWtDwJxFb4m6/s6sP2vb6Flz5KGSnctvIvAfNCEzJ+YXwicjQYovB2fc0Q8C+BNRIhPKKa/49Gy4mLEy2JlhT4V0s4jsmjivWo=
+  file: ${NAME}-${TRAVIS_TAG}-${TARGET}.zip
+  on:
+    tags: true
