@@ -59,7 +59,7 @@ impl Theme for ColoredTheme {
         default: Option<&str>,
     ) -> fmt::Result {
         let details = match default {
-            Some(default) => format!(" [{}]", default),
+            Some(default) => format!(" ({})", default),
             None => "".to_string(),
         };
 

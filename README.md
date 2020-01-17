@@ -1,17 +1,23 @@
 <h1 align="center">enquirer</h1>
 
 <p align="center">
-	<a href="https://travis-ci.org/termapps/enquirer">
-		<img src="https://img.shields.io/travis/termapps/enquirer.svg" alt="travis">
-	</a>
+  <a href="https://travis-ci.org/termapps/enquirer">
+    <img alt="Travis" src="https://img.shields.io/travis/termapps/enquirer?style=flat-square" alt="travis">
+  </a>
+  <a href="https://termapps.zulipchat.com/#narrow/stream/220422-enquirer">
+    <img alt="Zulip" src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg?style=flat-square">
+  </a>
+  <a href="https://crates.io/crates/enquirer">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/reign?style=flat-square">
+  </a>
 </p>
 
 <p align="center">
-	<b>Command Line Utility for Stylish Interactive Prompts</b>
-	<br>
-	<sub>(like fzf but for all types)</sub>
-	<br>
-	<sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
+  <b>Command Line Utility for Stylish Interactive Prompts</b>
+  <br>
+  <sub>(like fzf but for all types)</sub>
+  <br>
+  <sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
 
 ## Getting started
@@ -85,6 +91,7 @@ FLAGS:
 SUBCOMMANDS:
     confirm    Prompt that returns `true` or `false`
     help       Prints this message or the help of the given subcommand(s)
+    input      Prompt that takes user input and returns a string
 ```
 
 ### Library
@@ -111,19 +118,20 @@ fn main() {
 ## Prompts
 
 * [Confirm Prompt](#confirm-prompt)
+* [Input Prompt](#input-prompt)
 
 ### Confirm Prompt
 
 Prompt that returns `true` or `false` (as strings).
 
 <p align="center">
-	<img src="media/confirm.svg" alt="Enquirer Confirm Prompt" width="750">
+  <img src="media/confirm.svg" alt="Enquirer Confirm Prompt" width="750">
 </p>
 
 #### Usage
 
 ```
-enquirer 0.1.0
+enquirer-confirm 0.1.0
 Prompt that returns `true` or `false`
 
 USAGE:
@@ -136,6 +144,33 @@ FLAGS:
 
 OPTIONS:
     -m, --message <message>      Message for the prompt
+```
+
+### Input Prompt
+
+Prompt that takes user input and returns a string.
+
+<p align="center">
+  <img src="media/input.svg" alt="Enquirer Input Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer-input 0.1.0
+Prompt that takes user input and returns a string
+
+USAGE:
+    enquirer input [FLAGS] [OPTIONS] --message <message>
+
+FLAGS:
+    -a, --allow-empty    Allow empty input. Conflicts with `default`
+    -h, --help           Prints help information
+    -V, --version        Prints version information
+
+OPTIONS:
+    -d, --default <default>    Default value for the prompt
+    -m, --message <message>    Message for the prompt
 ```
 
 ## About
