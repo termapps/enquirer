@@ -21,6 +21,12 @@ matrix:
     - os: linux
       env:
         - TARGET=i686-unknown-linux-gnu
+      addons:
+        apt:
+          packages:
+            - gcc-5-multilib
+            - lib32gcc-5-dev
+          update: true
     - os: linux
       env:
         - SHARD=lint
@@ -38,6 +44,7 @@ script:
   - cargo build --target $TARGET
   - cargo test
 before_deploy:
+  # TODO: Generate man page from clap
   - cargo build --target $TARGET --release
   - mkdir "${NAME}-${TRAVIS_TAG}-${TARGET}"
   - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 "${NAME}-${TRAVIS_TAG}-${TARGET}"
