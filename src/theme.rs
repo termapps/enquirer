@@ -51,6 +51,50 @@ impl ColoredTheme {
 }
 
 impl Theme for ColoredTheme {
+    // Input
+    fn format_singleline_prompt(
+        &self,
+        f: &mut dyn fmt::Write,
+        prompt: &str,
+        default: Option<&str>,
+    ) -> fmt::Result {
+        let details = match default {
+            Some(default) => format!(" [{}]", default),
+            None => "".to_string(),
+        };
+
+        write!(
+            f,
+            "{} {}{} {} ",
+            self.cyan.apply_to("?"),
+            self.prompts_style.apply_to(prompt),
+            self.brblack.apply_to(details),
+            self.brblack.apply_to("›"),
+        )?;
+
+        Ok(())
+    }
+
+    // Input Selection
+    fn format_single_prompt_selection(
+        &self,
+        f: &mut dyn fmt::Write,
+        prompt: &str,
+        selection: &str,
+    ) -> fmt::Result {
+        write!(
+            f,
+            "{} {} {} {}",
+            self.green.apply_to("✔"),
+            self.prompts_style.apply_to(prompt),
+            self.brblack.apply_to("·"),
+            self.green.apply_to(selection),
+        )?;
+
+        Ok(())
+    }
+
+    // Confirm
     fn format_confirmation_prompt(
         &self,
         f: &mut dyn fmt::Write,
@@ -76,6 +120,7 @@ impl Theme for ColoredTheme {
         Ok(())
     }
 
+    // Confirm Selection
     fn format_confirmation_prompt_selection(
         &self,
         f: &mut dyn fmt::Write,
