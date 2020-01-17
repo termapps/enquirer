@@ -6,34 +6,31 @@
 	</a>
 </p>
 
-<br>
-
 <p align="center">
-	<b>Command Line Utility for Stylish Interactive Prompts (like fzf but for all types)</b>
+	<b>Command Line Utility for Stylish Interactive Prompts</b>
 	<br>
-	<sub>(Uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
+	<sub>(like fzf but for all types)</sub>
+	<br>
+	<sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
 
-<br>
-
-## ❯ Getting started
+## Getting started
 
 Get started with Enquirer, the most powerful command line utility for creating interactive CLI prompts.
 
-* [Install](#-install)
-* [Usage](#-usage)
-* [Prompts](#-prompts)
-* [Changelog](#-changelog)
-* [About](#-about)
+* [Install](#install)
+* [Usage](#usage)
+* [Prompts](#prompts)
+* [About](#about)
 
-## ❯ Install
+## Install
 
 `enquirer` is available on Linux, macOS
 
 ### With [Homebrew](https://brew.sh/)
 
 ```
-$ brew tap termapps/enquirer "https://github.com/termapps/enquirer"
+$ brew tap termapps/tap https://github.com/termapps/enquirer
 $ brew install enquirer
 ```
 
@@ -51,7 +48,7 @@ Pre-built binary executables are available at [releases page](https://github.com
 
 Download and unarchive the binary then put the executable in `$PATH`.
 
-## ❯ Usage
+## Usage
 
 ### Command Line Utility
 
@@ -71,7 +68,7 @@ else
 fi
 ```
 
-See [prompts](#-prompts) for more information on subcommands.
+See [prompts](#prompts) for more information on subcommands.
 
 ```
 enquirer 0.1.0
@@ -111,7 +108,7 @@ fn main() {
 }
 ```
 
-## ❯ Prompts
+## Prompts
 
 * [Confirm Prompt](#confirm-prompt)
 
@@ -141,11 +138,11 @@ OPTIONS:
     -m, --message <message>      Message for the prompt
 ```
 
-## ❯ Changelog
+## About
+
+### Changelog
 
 Please see [CHANGELOG.md](CHANGELOG.md).
-
-## ❯ About
 
 ### License
 MIT/X11

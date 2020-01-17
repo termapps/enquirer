@@ -1,4 +1,3 @@
-sudo: false
 language: rust
 rust: stable
 cache: cargo
@@ -6,7 +5,9 @@ env:
   global:
     - NAME=enquirer
     - PKG_CONFIG_ALLOW_CROSS=1
-matrix:
+    - SHARD=test
+    - EMAIL=pavan.sss1991@gmail.com
+jobs:
   allow_failures:
     - env:
         - SHARD=lint
@@ -27,6 +28,7 @@ matrix:
             - gcc-5-multilib
             - lib32gcc-5-dev
           update: true
+      after_deploy: skip
     - os: linux
       env:
         - SHARD=lint
@@ -37,7 +39,6 @@ matrix:
         - echo "Checking codebase with Clippy release `cargo clippy --version`."
         - cargo clippy --all --profile test
         - cargo fmt -- --check
-      # deploy: skip
 before_script:
   - rustup target add $TARGET
 script:
@@ -46,14 +47,15 @@ script:
 before_deploy:
   # TODO: Generate man page from clap
   - cargo build --target $TARGET --release
-  - mkdir "${NAME}-${TRAVIS_TAG}-${TARGET}"
-  - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 "${NAME}-${TRAVIS_TAG}-${TARGET}"
-  - zip "${NAME}-${TRAVIS_TAG}-${TARGET}.zip" -r "${NAME}-${TRAVIS_TAG}-${TARGET}"
+  - export BUILD_NAME=$NAME-$TRAVIS_TAG-$TARGET
+  - mkdir target/$BUILD_NAME
+  - cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 target/$BUILD_NAME
+  - zip $BUILD_NAME.zip -r target/$BUILD_NAME
 deploy:
-  skip_cleanup: true
+  edge: true
   provider: releases
-  api_key:
-    secure: qSshc7lM1LKfyEREbF3pmsaDVotAyRiPCsUK2dKCoLyuTbgA4s1NbZhw5nekq5sm0lSxnVYxfIzBeP77N62lgUigH/sBgUh1YPLkqECJ8EV0R/Rr3sKhg1uJ0/gthcKO3CZ2VCEecA0X65FA4uXFMqSxcXSLDI6B1vfkHh+2zKWZg8eiDkF1BrSl/OsWqgAosP/87mt79eMKGHeqXAOy0vdDGKoJsiGHbc5G2L9OSMzGTpDWUDaIFEwlgCEEYYjVg30Na6uqbr1W/vS+28G2y9YuJspUAtYYaMAI8FxEYmN6eEAjvQRkRNomBpPw78Vy0t9thogIZEvJRK8Z4uSHEuAlYjv0FvCFy44N5aYBIMSbKDN7Q1lltD3xToLVALaOBikNFDY9YwGxZIdLQ8MWQOqrZym9Hwy0MnLKuOCYxgW7Hz4ydJlJYFt396pquYcjEN5gDDOabXXAbHNWPJt0OmV+QwdiexeNcJMeWHS9bLA+2MfrWeFCTT/HSoExZ3N6oARLXbXJPkl5shlG7RyNz1A2STDRvH48CSUOjiz91UYpG5rYlVUpDdaA13Bd2V2oCaiOrkO4bCWtDwJxFb4m6/s6sP2vb6Flz5KGSnctvIvAfNCEzJ+YXwicjQYovB2fc0Q8C+BNRIhPKKa/49Gy4mLEy2JlhT4V0s4jsmjivWo=
-  file: ${NAME}-${TRAVIS_TAG}-${TARGET}.zip
+  file: ${BUILD_NAME}.zip
   on:
+    repo: ${TRAVIS_REPO_SLUG}
     tags: true
+    condition: $SHARD = test
