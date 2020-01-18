@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 0.3.0
 
 ### Enhancements
 * Added `multi-select` subcommand

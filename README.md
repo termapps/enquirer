@@ -79,7 +79,7 @@ fi
 See [prompts](#prompts) for more information on subcommands.
 
 ```
-enquirer 0.2.0
+enquirer 0.3.0
 Command Line Utility for Stylish Interactive Prompts
 
 USAGE:
@@ -141,7 +141,7 @@ Prompt that returns `true` or `false` (as strings)
 #### Usage
 
 ```
-enquirer-confirm 0.2.0
+enquirer-confirm 0.3.0
 Prompt that returns `true` or `false` (as strings)
 
 USAGE:
@@ -166,7 +166,7 @@ Prompt that takes user input and returns a string
 #### Usage
 
 ```
-enquirer-input 0.2.0
+enquirer-input 0.3.0
 Prompt that takes user input and returns a string
 
 USAGE:
@@ -192,7 +192,7 @@ Prompt that takes user input, hides it from the terminal, and returns a string
 #### Usage
 
 ```
-enquirer-secret 0.2.0
+enquirer-secret 0.3.0
 Prompt that takes user input, hides it from the terminal, and returns a string
 
 USAGE:
@@ -219,7 +219,7 @@ Prompt that allows the user to select from a list of options
 #### Usage
 
 ```
-enquirer-select 0.2.0
+enquirer-select 0.3.0
 Prompt that allows the user to select from a list of options
 
 USAGE:
@@ -248,7 +248,7 @@ Prompt that allows the user to select multiple items from a list of options
 #### Usage
 
 ```
-enquirer-multi-select 0.2.0
+enquirer-multi-select 0.3.0
 Prompt that allows the user to select multiple items from a list of options
 
 USAGE:
@@ -278,7 +278,7 @@ Prompt that allows the user to sort items in a list
 #### Usage
 
 ```
-enquirer-sort 0.2.0
+enquirer-sort 0.3.0
 Prompt that allows the user to sort items in a list
 
 USAGE:
