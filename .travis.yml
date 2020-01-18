@@ -58,7 +58,6 @@ script:
   - cargo build --target $TARGET
   - cargo test
 before_deploy:
-  # TODO: Generate man page from clap
   - cargo build --target $TARGET --release
   - export BUILD_NAME=$NAME-$TRAVIS_TAG-$TARGET
   - mkdir $BUILD_NAME

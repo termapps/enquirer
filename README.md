@@ -54,6 +54,8 @@ Pre-built binary executables are available at [releases page](https://github.com
 
 Download and unarchive the binary then put the executable in `$PATH`.
 
+> Check [roadmap](#roadmap) for other ways
+
 ## Usage
 
 ### Command Line Utility
@@ -233,6 +235,18 @@ ARGS:
 ```
 
 ## About
+
+### Roadmap
+
+* [Man page generation](https://github.com/clap-rs/clap/issues/552)
+* Packaging for other operating systems
+* [Auto Complete prompt](https://github.com/enquirer/enquirer#autocomplete-prompt) (like fzf)
+* [Snippet Prompt](https://github.com/enquirer/enquirer#snippet-prompt)
+* [Export hooks for Clap](https://github.com/clap-rs/clap/issues/1471)
+
+#### Dialoguer issues
+
+* Select and Multi-Select prompts cursors are after the items list while waiting for user. Maybe change them to be on prompt line.
 
 ### Changelog
 
