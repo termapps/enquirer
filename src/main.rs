@@ -5,10 +5,11 @@ mod secret;
 mod theme;
 
 use console::set_colors_enabled;
-use structopt::StructOpt;
+use structopt::{clap::AppSettings, StructOpt};
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "enquirer")]
+#[structopt(global_setting = AppSettings::VersionlessSubcommands)]
 /// Command Line Utility for Stylish Interactive Prompts
 struct Enquirer {
     #[structopt(subcommand)]

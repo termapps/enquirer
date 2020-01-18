@@ -144,7 +144,6 @@ USAGE:
 FLAGS:
     -d, --default    Default value for the prompt is `true`
     -h, --help       Prints help information
-    -V, --version    Prints version information
 
 OPTIONS:
     -m, --message <message>      Message for the prompt
@@ -170,7 +169,6 @@ USAGE:
 FLAGS:
     -a, --allow-empty    Allow empty input. Conflicts with `default`
     -h, --help           Prints help information
-    -V, --version        Prints version information
 
 OPTIONS:
     -d, --default <default>    Default value for the prompt
@@ -197,7 +195,6 @@ USAGE:
 FLAGS:
     -a, --allow-empty    Allow empty secret
     -h, --help           Prints help information
-    -V, --version        Prints version information
 
 OPTIONS:
     -c, --confirm <confirm>    Enable confirmation prompt with this message
@@ -226,7 +223,6 @@ FLAGS:
     -h, --help         Prints help information
         --no-inline    Do not print the selected items on the prompt line
     -p, --paged        Enables paging. Uses your terminal size
-    -V, --version      Prints version information
 
 OPTIONS:
     -m, --message <message>         Message for the prompt
