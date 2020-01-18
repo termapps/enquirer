@@ -91,12 +91,13 @@ FLAGS:
     -V, --version     Prints version information
 
 SUBCOMMANDS:
-    confirm         Prompt that returns `true` or `false`
+    confirm         Prompt that returns `true` or `false` (as strings)
     help            Prints this message or the help of the given subcommand(s)
     input           Prompt that takes user input and returns a string
     multi-select    Prompt that allows the user to select multiple items from a list of options
     secret          Prompt that takes user input, hides it from the terminal, and returns a string
     select          Prompt that allows the user to select from a list of options
+    sort            Prompt that allows the user to sort items in a list
 ```
 
 ### Library
@@ -127,10 +128,11 @@ fn main() {
 * [Secret Prompt](#secret-prompt)
 * [Select Prompt](#select-prompt)
 * [Multi Select Prompt](#multi-select-prompt)
+* [Sort Prompt](#sort-prompt)
 
 ### Confirm Prompt
 
-Prompt that returns `true` or `false` (as strings).
+Prompt that returns `true` or `false` (as strings)
 
 <p align="center">
   <img src="media/confirm.svg" alt="Enquirer Confirm Prompt" width="750">
@@ -140,7 +142,7 @@ Prompt that returns `true` or `false` (as strings).
 
 ```
 enquirer-confirm 0.2.0
-Prompt that returns `true` or `false`
+Prompt that returns `true` or `false` (as strings)
 
 USAGE:
     enquirer confirm [FLAGS] [OPTIONS] --message <message>
@@ -155,7 +157,7 @@ OPTIONS:
 
 ### Input Prompt
 
-Prompt that takes user input and returns a string.
+Prompt that takes user input and returns a string
 
 <p align="center">
   <img src="media/input.svg" alt="Enquirer Input Prompt" width="750">
@@ -263,6 +265,35 @@ OPTIONS:
 
 ARGS:
     <items>...    Items that can be selected
+```
+
+### Sort Prompt
+
+Prompt that allows the user to sort items in a list
+
+<p align="center">
+  <img src="media/sort.svg" alt="Enquirer Sort Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer-sort 0.2.0
+Prompt that allows the user to sort items in a list
+
+USAGE:
+    enquirer sort [FLAGS] --message <message> [items]...
+
+FLAGS:
+    -h, --help         Prints help information
+        --no-inline    Do not print the sorted items on the prompt line
+    -p, --paged        Enables paging. Uses your terminal size
+
+OPTIONS:
+    -m, --message <message>    Message for the prompt
+
+ARGS:
+    <items>...    Items that can be sorted
 ```
 
 ## About

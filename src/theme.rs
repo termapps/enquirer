@@ -31,7 +31,10 @@ pub struct ColoredTheme {
     pub errors_style: Style,
     pub selected_style: Style,
     pub unselected_style: Style,
+    /// Defaults to `true`
     pub inline_selections: bool,
+    /// Defaults to `false`
+    pub is_sort: bool,
 }
 
 impl Default for ColoredTheme {
@@ -45,6 +48,7 @@ impl Default for ColoredTheme {
             selected_style: Style::new().cyan().bold(),
             unselected_style: Style::new(),
             inline_selections: true,
+            is_sort: true,
         }
     }
 }
@@ -63,6 +67,22 @@ impl ColoredTheme {
     /// ```
     pub fn inline_selections(mut self, val: bool) -> Self {
         self.inline_selections = val;
+        self
+    }
+
+    /// OrderList by default prints like Checkboxes. This function
+    /// allows the user to specify that the theme needs to use
+    /// a different style for sort.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use enquirer::ColoredTheme;
+    ///
+    /// let theme = ColoredTheme::default().set_sort(true);
+    /// ```
+    pub fn set_sort(mut self, val: bool) -> Self {
+        self.is_sort = val;
         self
     }
 
@@ -213,7 +233,8 @@ impl Theme for ColoredTheme {
     ) -> fmt::Result {
         let strings = match style {
             SelectionStyle::CheckboxCheckedSelected => (
-                self.values_style.apply_to("✔"),
+                self.values_style
+                    .apply_to(if self.is_sort { "❯" } else { "✔" }),
                 self.selected_style.apply_to(text),
             ),
             SelectionStyle::CheckboxCheckedUnselected => (
@@ -221,11 +242,19 @@ impl Theme for ColoredTheme {
                 self.unselected_style.apply_to(text),
             ),
             SelectionStyle::CheckboxUncheckedSelected => (
-                self.defaults_style.apply_to("✔"),
+                if self.is_sort {
+                    self.defaults_style.apply_to(" ")
+                } else {
+                    self.defaults_style.apply_to("✔")
+                },
                 self.selected_style.apply_to(text),
             ),
             SelectionStyle::CheckboxUncheckedUnselected => (
-                self.defaults_style.apply_to("✔"),
+                if self.is_sort {
+                    self.defaults_style.apply_to(" ")
+                } else {
+                    self.defaults_style.apply_to("✔")
+                },
                 self.unselected_style.apply_to(text),
             ),
             SelectionStyle::MenuSelected => (

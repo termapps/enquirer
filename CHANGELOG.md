@@ -5,6 +5,7 @@
 ### Enhancements
 * Added `multi-select` subcommand
 * Added `select` subcommand
+* Added `sort` subcommand
 
 ### Breaking
 * Removed versions from subcommands

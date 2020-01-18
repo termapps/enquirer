@@ -4,7 +4,7 @@ use std::io::Result;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-/// Prompt that returns `true` or `false`
+/// Prompt that returns `true` or `false` (as strings)
 pub struct Confirm {
     #[structopt(short, long)]
     /// Message for the prompt
