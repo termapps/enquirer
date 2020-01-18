@@ -89,10 +89,11 @@ FLAGS:
     -V, --version     Prints version information
 
 SUBCOMMANDS:
-    confirm    Prompt that returns `true` or `false`
-    help       Prints this message or the help of the given subcommand(s)
-    input      Prompt that takes user input and returns a string
-    secret     Prompt that takes user input, hides it from the terminal, and returns a string
+    confirm         Prompt that returns `true` or `false`
+    help            Prints this message or the help of the given subcommand(s)
+    input           Prompt that takes user input and returns a string
+    multi-select    Prompt that allows the user to select multiple items from a list of options
+    secret          Prompt that takes user input, hides it from the terminal, and returns a string
 ```
 
 ### Library
@@ -121,6 +122,7 @@ fn main() {
 * [Confirm Prompt](#confirm-prompt)
 * [Input Prompt](#input-prompt)
 * [Secret Prompt](#secret-prompt)
+* [Multi Select Prompt](#multi-select-prompt)
 
 ### Confirm Prompt
 
@@ -201,6 +203,37 @@ OPTIONS:
     -c, --confirm <confirm>    Enable confirmation prompt with this message
     -e, --error <error>        Error message when secrets doesn't match during confirmation
     -m, --message <message>    Message for the prompt
+```
+
+### Multi Select Prompt
+
+Prompt that allows the user to select multiple items from a list of options
+
+<p align="center">
+  <img src="media/multi-select.svg" alt="Enquirer Multi Select Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer-multi-select 0.2.0
+Prompt that allows the user to select multiple items from a list of options
+
+USAGE:
+    enquirer multi-select [FLAGS] [OPTIONS] --message <message> [--] [items]...
+
+FLAGS:
+    -h, --help         Prints help information
+        --no-inline    Do not print the selected items on the prompt line
+    -p, --paged        Enables paging. Uses your terminal size
+    -V, --version      Prints version information
+
+OPTIONS:
+    -m, --message <message>         Message for the prompt
+    -s, --selected <selected>...    Specify numbers of items that will be selected by default
+
+ARGS:
+    <items>...    Items that can be selected
 ```
 
 ## About

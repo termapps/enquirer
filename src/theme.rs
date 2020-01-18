@@ -1,5 +1,5 @@
 use console::{Style, StyledObject};
-use dialoguer::theme::Theme;
+use dialoguer::theme::{SelectionStyle, Theme};
 use std::fmt;
 
 #[allow(clippy::needless_doctest_main)]
@@ -24,11 +24,14 @@ use std::fmt;
 /// }
 /// ```
 pub struct ColoredTheme {
-    defaults_style: Style,
-    prompts_style: Style,
-    prefixes_style: Style,
-    values_style: Style,
-    errors_style: Style,
+    pub defaults_style: Style,
+    pub prompts_style: Style,
+    pub prefixes_style: Style,
+    pub values_style: Style,
+    pub errors_style: Style,
+    pub selected_style: Style,
+    pub unselected_style: Style,
+    pub inline_selections: bool,
 }
 
 impl Default for ColoredTheme {
@@ -39,11 +42,30 @@ impl Default for ColoredTheme {
             prefixes_style: Style::new().cyan(),
             values_style: Style::new().green(),
             errors_style: Style::new().red(),
+            selected_style: Style::new().cyan().bold(),
+            unselected_style: Style::new(),
+            inline_selections: true,
         }
     }
 }
 
 impl ColoredTheme {
+    /// Checkboxes print the selected values on the prompt line.
+    /// This option allows the user to customize whether
+    /// those will be printed on the prompts line or not.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use enquirer::ColoredTheme;
+    ///
+    /// let theme = ColoredTheme::default().inline_selections(false);
+    /// ```
+    pub fn inline_selections(mut self, val: bool) -> Self {
+        self.inline_selections = val;
+        self
+    }
+
     fn empty(&self) -> (StyledObject<&str>, StyledObject<&str>) {
         (
             self.prompts_style.apply_to(""),
@@ -60,6 +82,19 @@ impl Theme for ColoredTheme {
             "{} {}",
             self.errors_style.apply_to("✘"),
             self.errors_style.apply_to(err)
+        )?;
+
+        Ok(())
+    }
+
+    // Prompt
+    fn format_prompt(&self, f: &mut dyn fmt::Write, prompt: &str) -> fmt::Result {
+        write!(
+            f,
+            "{} {} {}",
+            self.prefixes_style.apply_to("?"),
+            self.prompts_style.apply_to(prompt),
+            self.defaults_style.apply_to("›")
         )?;
 
         Ok(())
@@ -167,5 +202,67 @@ impl Theme for ColoredTheme {
         prompt: &str,
     ) -> fmt::Result {
         self.format_single_prompt_selection(f, prompt, "********")
+    }
+
+    // Selection
+    fn format_selection(
+        &self,
+        f: &mut dyn fmt::Write,
+        text: &str,
+        style: SelectionStyle,
+    ) -> fmt::Result {
+        let strings = match style {
+            SelectionStyle::CheckboxCheckedSelected => (
+                self.values_style.apply_to("✔"),
+                self.selected_style.apply_to(text),
+            ),
+            SelectionStyle::CheckboxCheckedUnselected => (
+                self.values_style.apply_to("✔"),
+                self.unselected_style.apply_to(text),
+            ),
+            SelectionStyle::CheckboxUncheckedSelected => (
+                self.defaults_style.apply_to("✔"),
+                self.selected_style.apply_to(text),
+            ),
+            SelectionStyle::CheckboxUncheckedUnselected => (
+                self.defaults_style.apply_to("✔"),
+                self.unselected_style.apply_to(text),
+            ),
+            _ => unimplemented!(),
+        };
+
+        write!(f, "{} {}", strings.0, strings.1)?;
+
+        Ok(())
+    }
+
+    // Multi Prompt Selection
+    fn format_multi_prompt_selection(
+        &self,
+        f: &mut dyn fmt::Write,
+        prompt: &str,
+        selections: &[&str],
+    ) -> fmt::Result {
+        write!(
+            f,
+            "{} {} {}",
+            self.values_style.apply_to("✔"),
+            self.prompts_style.apply_to(prompt),
+            self.defaults_style.apply_to("·"),
+        )?;
+
+        if self.inline_selections {
+            let selections_last_index = selections.len() - 1;
+
+            for (i, v) in selections.iter().enumerate() {
+                if i == selections_last_index {
+                    write!(f, " {}", self.values_style.apply_to(v))?;
+                } else {
+                    write!(f, " {},", self.values_style.apply_to(v))?;
+                }
+            }
+        }
+
+        Ok(())
     }
 }
