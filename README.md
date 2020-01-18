@@ -96,6 +96,7 @@ SUBCOMMANDS:
     input           Prompt that takes user input and returns a string
     multi-select    Prompt that allows the user to select multiple items from a list of options
     secret          Prompt that takes user input, hides it from the terminal, and returns a string
+    select          Prompt that allows the user to select from a list of options
 ```
 
 ### Library
@@ -124,6 +125,7 @@ fn main() {
 * [Confirm Prompt](#confirm-prompt)
 * [Input Prompt](#input-prompt)
 * [Secret Prompt](#secret-prompt)
+* [Select Prompt](#select-prompt)
 * [Multi Select Prompt](#multi-select-prompt)
 
 ### Confirm Prompt
@@ -202,6 +204,35 @@ OPTIONS:
     -c, --confirm <confirm>    Enable confirmation prompt with this message
     -e, --error <error>        Error message when secrets doesn't match during confirmation
     -m, --message <message>    Message for the prompt
+```
+
+### Select Prompt
+
+Prompt that allows the user to select from a list of options
+
+<p align="center">
+  <img src="media/select.svg" alt="Enquirer Select Prompt" width="750">
+</p>
+
+#### Usage
+
+```
+enquirer-select 0.2.0
+Prompt that allows the user to select from a list of options
+
+USAGE:
+    enquirer select [FLAGS] [OPTIONS] --message <message> [items]...
+
+FLAGS:
+    -h, --help     Prints help information
+    -p, --paged    Enables paging. Uses your terminal size
+
+OPTIONS:
+    -m, --message <message>      Message for the prompt
+    -s, --selected <selected>    Specify number of the item that will be selected by default
+
+ARGS:
+    <items>...    Items that can be selected
 ```
 
 ### Multi Select Prompt

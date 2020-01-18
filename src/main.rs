@@ -2,6 +2,7 @@ mod confirm;
 mod input;
 mod multi_select;
 mod secret;
+mod select;
 mod theme;
 
 use console::set_colors_enabled;
@@ -26,6 +27,7 @@ enum EnquirerSubcommand {
     Input(input::Input),
     Secret(secret::Secret),
     MultiSelect(multi_select::MultiSelect),
+    Select(select::Select),
 }
 
 fn main() {
@@ -38,6 +40,7 @@ fn main() {
         EnquirerSubcommand::Input(x) => x.run(),
         EnquirerSubcommand::Secret(x) => x.run(),
         EnquirerSubcommand::MultiSelect(x) => x.run(),
+        EnquirerSubcommand::Select(x) => x.run(),
     }
     .unwrap();
 }

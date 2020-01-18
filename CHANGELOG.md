@@ -1,5 +1,14 @@
 # Changelog
 
+## master
+
+### Enhancements
+* Added `multi-select` subcommand
+* Added `select` subcommand
+
+### Breaking
+* Removed versions from subcommands
+
 ## 0.2.0
 
 ### Enhancements

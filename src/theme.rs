@@ -228,7 +228,14 @@ impl Theme for ColoredTheme {
                 self.defaults_style.apply_to("✔"),
                 self.unselected_style.apply_to(text),
             ),
-            _ => unimplemented!(),
+            SelectionStyle::MenuSelected => (
+                self.values_style.apply_to("❯"),
+                self.selected_style.apply_to(text),
+            ),
+            SelectionStyle::MenuUnselected => (
+                self.defaults_style.apply_to(" "),
+                self.unselected_style.apply_to(text),
+            ),
         };
 
         write!(f, "{} {}", strings.0, strings.1)?;
