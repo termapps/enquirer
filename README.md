@@ -8,7 +8,7 @@
     <img alt="Zulip" src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg?style=flat-square">
   </a>
   <a href="https://crates.io/crates/enquirer">
-    <img alt="Crates.io" src="https://img.shields.io/crates/v/reign?style=flat-square">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/enquirer?style=flat-square">
   </a>
 </p>
 
