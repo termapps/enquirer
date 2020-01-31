@@ -33,12 +33,14 @@ jobs:
       after_deploy: skip
     - os: linux
       if: tag IS blank
+      env:
+        - SHARD=lint
       before_script:
         - rustup component add clippy
         - rustup component add rustfmt
       script:
         - echo "Checking codebase with Clippy release `cargo clippy --version`."
-        - cargo clippy --all --profile test
+        - cargo clippy --all --all-targets --all-features -- -D warnings
         - cargo fmt -- --check
     - stage: homebrew
       os: linux
