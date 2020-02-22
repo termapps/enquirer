@@ -15,8 +15,6 @@
 <p align="center">
   <b>Command Line Utility for Stylish Interactive Prompts</b>
   <br>
-  <sub>(like fzf but for all types)</sub>
-  <br>
   <sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
 
