@@ -63,10 +63,9 @@ The main reason I created this tool is to use it as an stylish interactive and u
 ```bash
 #!/bin/bash
 
-TRUE="true"
-CONFIRM=$(enquirer confirm -m "Do you want to continue?" -d)
+confirm=$(enquirer confirm -m "Do you want to continue?" -d)
 
-if [ "$TRUE" = "$CONFIRM" ]; then
+if [ "$confirm" = "true" ]; then
     echo "Continuing ..."
 else
     echo "Thanks for using this tool. Quitting ..."
