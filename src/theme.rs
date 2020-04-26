@@ -40,7 +40,7 @@ pub struct ColoredTheme {
 impl Default for ColoredTheme {
     fn default() -> Self {
         ColoredTheme {
-            defaults_style: Style::new().black().bold(),
+            defaults_style: Style::new().black().bright(),
             prompts_style: Style::new().bold(),
             prefixes_style: Style::new().cyan(),
             values_style: Style::new().green(),

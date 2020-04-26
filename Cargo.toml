@@ -1,6 +1,6 @@
 [package]
 name = "enquirer"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"]
 edition = "2018"
 description = "Command Line Utility for Stylish Interactive Prompts"
@@ -15,9 +15,9 @@ travis-ci = { repository = "termapps/enquirer" }
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-dialoguer = "0.5.0"
+dialoguer = "0.5.1"
 structopt = "0.3.7"
-console = "0.9.1"
+console = "0.10.1"
 
 [[bin]]
 name = "enquirer"
