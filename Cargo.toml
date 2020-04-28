@@ -15,9 +15,9 @@ travis-ci = { repository = "termapps/enquirer" }
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-dialoguer = "0.5.1"
+dialoguer = "0.6"
 structopt = "0.3.7"
-console = "0.10.1"
+console = "0.11.2"
 
 [[bin]]
 name = "enquirer"
@@ -27,3 +27,6 @@ path = "src/main.rs"
 name = "enquirer"
 path = "src/lib.rs"
 doctest = false
+
+[profile.release]
+lto = "thin"

@@ -1,5 +1,4 @@
 use super::theme::ColoredTheme;
-use dialoguer::OrderList;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -30,10 +29,8 @@ impl Sort {
             return Ok(());
         }
 
-        let theme = ColoredTheme::default()
-            .set_sort(true)
-            .inline_selections(!self.no_inline);
-        let mut input = OrderList::with_theme(&theme);
+        let theme = ColoredTheme::default().inline_selections(!self.no_inline);
+        let mut input = dialoguer::Sort::with_theme(&theme);
 
         input
             .with_prompt(&self.message)

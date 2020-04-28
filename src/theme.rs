@@ -1,6 +1,5 @@
-use console::{Style, StyledObject};
-use dialoguer::theme::{SelectionStyle, Theme};
-use std::fmt;
+use dialoguer::theme::{ColorfulTheme, Theme};
+use std::fmt::{Result, Write};
 
 #[allow(clippy::needless_doctest_main)]
 /// Provides a colored theme for dialoguer
@@ -24,31 +23,16 @@ use std::fmt;
 /// }
 /// ```
 pub struct ColoredTheme {
-    pub defaults_style: Style,
-    pub prompts_style: Style,
-    pub prefixes_style: Style,
-    pub values_style: Style,
-    pub errors_style: Style,
-    pub selected_style: Style,
-    pub unselected_style: Style,
+    pub base: ColorfulTheme,
     /// Defaults to `true`
     pub inline_selections: bool,
-    /// Defaults to `false`
-    pub is_sort: bool,
 }
 
 impl Default for ColoredTheme {
     fn default() -> Self {
         ColoredTheme {
-            defaults_style: Style::new().black().bright(),
-            prompts_style: Style::new().bold(),
-            prefixes_style: Style::new().cyan(),
-            values_style: Style::new().green(),
-            errors_style: Style::new().red(),
-            selected_style: Style::new().cyan().bold(),
-            unselected_style: Style::new(),
+            base: ColorfulTheme::default(),
             inline_selections: true,
-            is_sort: true,
         }
     }
 }
@@ -69,236 +53,104 @@ impl ColoredTheme {
         self.inline_selections = val;
         self
     }
-
-    /// OrderList by default prints like Checkboxes. This function
-    /// allows the user to specify that the theme needs to use
-    /// a different style for sort.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use enquirer::ColoredTheme;
-    ///
-    /// let theme = ColoredTheme::default().set_sort(true);
-    /// ```
-    pub fn set_sort(mut self, val: bool) -> Self {
-        self.is_sort = val;
-        self
-    }
-
-    fn empty(&self) -> (StyledObject<&str>, StyledObject<&str>) {
-        (
-            self.prompts_style.apply_to(""),
-            self.prompts_style.apply_to(""),
-        )
-    }
 }
 
 impl Theme for ColoredTheme {
-    // Error
-    fn format_error(&self, f: &mut dyn fmt::Write, err: &str) -> fmt::Result {
-        write!(
-            f,
-            "{} {}",
-            self.errors_style.apply_to("✘"),
-            self.errors_style.apply_to(err)
-        )?;
-
-        Ok(())
-    }
-
-    // Prompt
-    fn format_prompt(&self, f: &mut dyn fmt::Write, prompt: &str) -> fmt::Result {
-        write!(
-            f,
-            "{} {} {}",
-            self.prefixes_style.apply_to("?"),
-            self.prompts_style.apply_to(prompt),
-            self.defaults_style.apply_to("›")
-        )?;
-
-        Ok(())
-    }
-
-    // Input
-    fn format_singleline_prompt(
-        &self,
-        f: &mut dyn fmt::Write,
-        prompt: &str,
-        default: Option<&str>,
-    ) -> fmt::Result {
-        let details = match default {
-            Some(default) => format!(" ({})", default),
-            None => "".to_string(),
-        };
-
-        write!(
-            f,
-            "{} {}{} {} ",
-            self.prefixes_style.apply_to("?"),
-            self.prompts_style.apply_to(prompt),
-            self.defaults_style.apply_to(details),
-            self.defaults_style.apply_to("›"),
-        )?;
-
-        Ok(())
-    }
-
-    // Input Selection
-    fn format_single_prompt_selection(
-        &self,
-        f: &mut dyn fmt::Write,
-        prompt: &str,
-        selection: &str,
-    ) -> fmt::Result {
-        write!(
-            f,
-            "{} {} {} {}",
-            self.values_style.apply_to("✔"),
-            self.prompts_style.apply_to(prompt),
-            self.defaults_style.apply_to("·"),
-            self.values_style.apply_to(selection),
-        )?;
-
-        Ok(())
-    }
-
-    // Confirm
-    fn format_confirmation_prompt(
-        &self,
-        f: &mut dyn fmt::Write,
-        prompt: &str,
-        default: Option<bool>,
-    ) -> fmt::Result {
-        let details = match default {
-            None => self.empty(),
-            Some(true) => (
-                self.defaults_style.apply_to("(Y/n)"),
-                self.prefixes_style.apply_to("true"),
-            ),
-            Some(false) => (
-                self.defaults_style.apply_to("(y/N)"),
-                self.prefixes_style.apply_to("false"),
-            ),
-        };
-
-        write!(
-            f,
-            "{} {} {} {} {} ",
-            self.prefixes_style.apply_to("?"),
-            self.prompts_style.apply_to(prompt),
-            details.0,
-            self.defaults_style.apply_to("›"),
-            details.1,
-        )?;
-
-        Ok(())
-    }
-
-    // Confirm Selection
-    fn format_confirmation_prompt_selection(
-        &self,
-        f: &mut dyn fmt::Write,
-        prompt: &str,
-        selection: bool,
-    ) -> fmt::Result {
-        write!(
-            f,
-            "{} {} {} {}",
-            self.values_style.apply_to("✔"),
-            self.prompts_style.apply_to(prompt),
-            self.defaults_style.apply_to("·"),
-            self.values_style
-                .apply_to(if selection { "true" } else { "false" }),
-        )?;
-
-        Ok(())
-    }
-
-    // Password Selection
-    fn format_password_prompt_selection(
-        &self,
-        f: &mut dyn fmt::Write,
-        prompt: &str,
-    ) -> fmt::Result {
-        self.format_single_prompt_selection(f, prompt, "********")
-    }
-
-    // Selection
-    fn format_selection(
-        &self,
-        f: &mut dyn fmt::Write,
-        text: &str,
-        style: SelectionStyle,
-    ) -> fmt::Result {
-        let strings = match style {
-            SelectionStyle::CheckboxCheckedSelected => (
-                self.values_style
-                    .apply_to(if self.is_sort { "❯" } else { "✔" }),
-                self.selected_style.apply_to(text),
-            ),
-            SelectionStyle::CheckboxCheckedUnselected => (
-                self.values_style.apply_to("✔"),
-                self.unselected_style.apply_to(text),
-            ),
-            SelectionStyle::CheckboxUncheckedSelected => (
-                if self.is_sort {
-                    self.defaults_style.apply_to(" ")
-                } else {
-                    self.defaults_style.apply_to("✔")
-                },
-                self.selected_style.apply_to(text),
-            ),
-            SelectionStyle::CheckboxUncheckedUnselected => (
-                if self.is_sort {
-                    self.defaults_style.apply_to(" ")
-                } else {
-                    self.defaults_style.apply_to("✔")
-                },
-                self.unselected_style.apply_to(text),
-            ),
-            SelectionStyle::MenuSelected => (
-                self.values_style.apply_to("❯"),
-                self.selected_style.apply_to(text),
-            ),
-            SelectionStyle::MenuUnselected => (
-                self.defaults_style.apply_to(" "),
-                self.unselected_style.apply_to(text),
-            ),
-        };
-
-        write!(f, "{} {}", strings.0, strings.1)?;
-
-        Ok(())
-    }
-
     // Multi Prompt Selection
-    fn format_multi_prompt_selection(
+    fn format_multi_select_prompt_selection(
         &self,
-        f: &mut dyn fmt::Write,
+        f: &mut dyn Write,
         prompt: &str,
         selections: &[&str],
-    ) -> fmt::Result {
+    ) -> Result {
         write!(
             f,
-            "{} {} {}",
-            self.values_style.apply_to("✔"),
-            self.prompts_style.apply_to(prompt),
-            self.defaults_style.apply_to("·"),
+            "{} {} {} ",
+            &self.base.success_prefix,
+            self.base.prompt_style.apply_to(prompt),
+            &self.base.success_suffix,
         )?;
 
         if self.inline_selections {
-            let selections_last_index = selections.len() - 1;
-
             for (i, v) in selections.iter().enumerate() {
-                if i == selections_last_index {
-                    write!(f, " {}", self.values_style.apply_to(v))?;
-                } else {
-                    write!(f, " {},", self.values_style.apply_to(v))?;
-                }
+                write!(
+                    f,
+                    "{}{}",
+                    if i == 0 { "" } else { ", " },
+                    self.base.values_style.apply_to(v)
+                )?;
             }
         }
 
         Ok(())
+    }
+
+    fn format_prompt(&self, f: &mut dyn Write, prompt: &str) -> Result {
+        self.base.format_prompt(f, prompt)
+    }
+
+    fn format_error(&self, f: &mut dyn Write, err: &str) -> Result {
+        self.base.format_error(f, err)
+    }
+
+    fn format_confirm_prompt(
+        &self,
+        f: &mut dyn Write,
+        prompt: &str,
+        default: Option<bool>,
+    ) -> Result {
+        self.base.format_confirm_prompt(f, prompt, default)
+    }
+
+    fn format_confirm_prompt_selection(
+        &self,
+        f: &mut dyn Write,
+        prompt: &str,
+        selection: bool,
+    ) -> Result {
+        self.base
+            .format_confirm_prompt_selection(f, prompt, selection)
+    }
+
+    fn format_input_prompt(
+        &self,
+        f: &mut dyn Write,
+        prompt: &str,
+        default: Option<&str>,
+    ) -> Result {
+        self.base.format_input_prompt(f, prompt, default)
+    }
+
+    fn format_input_prompt_selection(&self, f: &mut dyn Write, prompt: &str, sel: &str) -> Result {
+        self.base.format_input_prompt_selection(f, prompt, sel)
+    }
+
+    fn format_password_prompt_selection(&self, f: &mut dyn Write, prompt: &str) -> Result {
+        self.base.format_password_prompt_selection(f, prompt)
+    }
+
+    fn format_select_prompt_item(&self, f: &mut dyn Write, text: &str, active: bool) -> Result {
+        self.base.format_select_prompt_item(f, text, active)
+    }
+
+    fn format_multi_select_prompt_item(
+        &self,
+        f: &mut dyn Write,
+        text: &str,
+        checked: bool,
+        active: bool,
+    ) -> Result {
+        self.base
+            .format_multi_select_prompt_item(f, text, checked, active)
+    }
+
+    fn format_sort_prompt_item(
+        &self,
+        f: &mut dyn Write,
+        text: &str,
+        picked: bool,
+        active: bool,
+    ) -> Result {
+        self.base.format_sort_prompt_item(f, text, picked, active)
     }
 }

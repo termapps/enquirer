@@ -1,5 +1,4 @@
 use super::theme::ColoredTheme;
-use dialoguer::PasswordInput;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -26,17 +25,14 @@ pub struct Secret {
 impl Secret {
     pub fn run(&self) -> Result<()> {
         let theme = ColoredTheme::default();
-        let mut input = PasswordInput::with_theme(&theme);
+        let mut input = dialoguer::Password::with_theme(&theme);
 
         input
             .with_prompt(&self.message)
             .allow_empty_password(self.allow_empty);
 
         if self.confirm.is_some() {
-            input.with_confirmation(
-                self.confirm.as_ref().unwrap(),
-                &self.error.as_ref().unwrap(),
-            );
+            input.with_confirmation(self.confirm.as_ref().unwrap(), self.error.as_ref().unwrap());
         }
 
         let value = input.interact()?;

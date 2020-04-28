@@ -1,5 +1,4 @@
 use super::theme::ColoredTheme;
-use dialoguer::Checkboxes;
 use std::{io::Result, iter::repeat};
 use structopt::StructOpt;
 
@@ -35,7 +34,7 @@ impl MultiSelect {
         }
 
         let theme = ColoredTheme::default().inline_selections(!self.no_inline);
-        let mut input = Checkboxes::with_theme(&theme);
+        let mut input = dialoguer::MultiSelect::with_theme(&theme);
         let mut defaults = vec![];
 
         defaults.extend(repeat(false).take(item_len));
