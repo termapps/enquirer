@@ -1,6 +1,6 @@
 [package]
 name = "enquirer"
-version = "0.3.1"
+version = "0.4.0"
 authors = ["Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"]
 edition = "2018"
 description = "Command Line Utility for Stylish Interactive Prompts"
