@@ -1,5 +1,4 @@
-use super::theme::ColoredTheme;
-use dialoguer;
+use dialoguer::theme::ColorfulTheme;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -21,7 +20,7 @@ pub struct Input {
 
 impl Input {
     pub fn run(&self) -> Result<()> {
-        let theme = ColoredTheme::default();
+        let theme = ColorfulTheme::default();
         let mut input = dialoguer::Input::<String>::with_theme(&theme);
 
         input
@@ -32,7 +31,7 @@ impl Input {
             input.default(self.default.as_ref().unwrap().to_string());
         }
 
-        let value = input.interact()?;
+        let value = input.interact_text()?;
 
         println!("{}", value);
 

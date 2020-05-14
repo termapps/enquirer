@@ -15,7 +15,7 @@ travis-ci = { repository = "termapps/enquirer" }
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-dialoguer = "0.6"
+dialoguer = "0.7"
 structopt = "0.3.7"
 console = "0.11.2"
 

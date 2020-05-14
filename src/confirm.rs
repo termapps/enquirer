@@ -1,4 +1,4 @@
-use super::theme::ColoredTheme;
+use dialoguer::theme::ColorfulTheme;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -20,7 +20,7 @@ pub struct Confirm {
 
 impl Confirm {
     pub fn run(&self) -> Result<()> {
-        let value = dialoguer::Confirm::with_theme(&ColoredTheme::default())
+        let value = dialoguer::Confirm::with_theme(&ColorfulTheme::default())
             .with_prompt(&self.message)
             .default(self.default)
             .interact()?;

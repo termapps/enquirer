@@ -1,4 +1,4 @@
-use super::theme::ColoredTheme;
+use dialoguer::theme::ColorfulTheme;
 use std::{io::Result, iter::repeat};
 use structopt::StructOpt;
 
@@ -33,7 +33,11 @@ impl MultiSelect {
             return Ok(());
         }
 
-        let theme = ColoredTheme::default().inline_selections(!self.no_inline);
+        let theme = ColorfulTheme {
+            inline_selections: !self.no_inline,
+            ..ColorfulTheme::default(),
+        };
+
         let mut input = dialoguer::MultiSelect::with_theme(&theme);
         let mut defaults = vec![];
 

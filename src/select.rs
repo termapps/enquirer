@@ -1,5 +1,4 @@
-use super::theme::ColoredTheme;
-use dialoguer;
+use dialoguer::theme::ColorfulTheme;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -30,7 +29,7 @@ impl Select {
             return Ok(());
         }
 
-        let theme = ColoredTheme::default();
+        let theme = ColorfulTheme::default();
         let mut input = dialoguer::Select::with_theme(&theme);
 
         input

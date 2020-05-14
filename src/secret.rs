@@ -1,4 +1,4 @@
-use super::theme::ColoredTheme;
+use dialoguer::theme::ColorfulTheme;
 use std::io::Result;
 use structopt::StructOpt;
 
@@ -24,7 +24,7 @@ pub struct Secret {
 
 impl Secret {
     pub fn run(&self) -> Result<()> {
-        let theme = ColoredTheme::default();
+        let theme = ColorfulTheme::default();
         let mut input = dialoguer::Password::with_theme(&theme);
 
         input
