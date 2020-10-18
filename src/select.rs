@@ -1,12 +1,13 @@
 use dialoguer::theme::ColorfulTheme;
-use std::io::Result;
 use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+use std::io::Result;
+
 /// Prompt that allows the user to select from a list of options
+#[derive(Debug, StructOpt)]
 pub struct Select {
-    #[structopt(short, long)]
     /// Message for the prompt
+    #[structopt(short, long)]
     message: String,
 
     /// Enables paging. Uses your terminal size

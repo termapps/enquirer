@@ -1,16 +1,17 @@
 use dialoguer::theme::ColorfulTheme;
-use std::io::Result;
 use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+use std::io::Result;
+
 /// Prompt that takes user input and returns a string.
+#[derive(Debug, StructOpt)]
 pub struct Input {
-    #[structopt(short, long)]
     /// Message for the prompt
+    #[structopt(short, long)]
     message: String,
 
-    #[structopt(short, long)]
     /// Default value for the prompt
+    #[structopt(short, long)]
     default: Option<String>,
 
     /// Allow empty input. Conflicts with `default`

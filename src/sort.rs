@@ -1,12 +1,13 @@
 use dialoguer::theme::ColorfulTheme;
-use std::io::Result;
 use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+use std::io::Result;
+
 /// Prompt that allows the user to sort items in a list
+#[derive(Debug, StructOpt)]
 pub struct Sort {
-    #[structopt(short, long)]
     /// Message for the prompt
+    #[structopt(short, long)]
     message: String,
 
     /// Enables paging. Uses your terminal size
@@ -31,7 +32,7 @@ impl Sort {
 
         let theme = ColorfulTheme {
             inline_selections: !self.no_inline,
-            ..ColorfulTheme::default(),
+            ..ColorfulTheme::default()
         };
 
         let mut input = dialoguer::Sort::with_theme(&theme);

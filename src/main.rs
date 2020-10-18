@@ -4,21 +4,20 @@ mod multi_select;
 mod secret;
 mod select;
 mod sort;
-mod theme;
 
 use console::set_colors_enabled;
 use structopt::{clap::AppSettings, StructOpt};
 
+/// Command Line Utility for Stylish Interactive Prompts
 #[derive(Debug, StructOpt)]
 #[structopt(name = "enquirer")]
 #[structopt(global_setting = AppSettings::VersionlessSubcommands)]
-/// Command Line Utility for Stylish Interactive Prompts
 struct Enquirer {
     #[structopt(subcommand)]
     cmd: EnquirerSubcommand,
 
-    #[structopt(long)]
     /// Disable colors in the prompt
+    #[structopt(long)]
     no_color: bool,
 }
 

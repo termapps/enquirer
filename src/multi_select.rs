@@ -1,12 +1,13 @@
 use dialoguer::theme::ColorfulTheme;
-use std::{io::Result, iter::repeat};
 use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+use std::{io::Result, iter::repeat};
+
 /// Prompt that allows the user to select multiple items from a list of options
+#[derive(Debug, StructOpt)]
 pub struct MultiSelect {
-    #[structopt(short, long)]
     /// Message for the prompt
+    #[structopt(short, long)]
     message: String,
 
     /// Enables paging. Uses your terminal size
@@ -35,7 +36,7 @@ impl MultiSelect {
 
         let theme = ColorfulTheme {
             inline_selections: !self.no_inline,
-            ..ColorfulTheme::default(),
+            ..ColorfulTheme::default()
         };
 
         let mut input = dialoguer::MultiSelect::with_theme(&theme);

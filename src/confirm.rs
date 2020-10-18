@@ -1,16 +1,17 @@
 use dialoguer::theme::ColorfulTheme;
-use std::io::Result;
 use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+use std::io::Result;
+
 /// Prompt that returns `true` or `false` (as strings)
+#[derive(Debug, StructOpt)]
 pub struct Confirm {
-    #[structopt(short, long)]
     /// Message for the prompt
+    #[structopt(short, long)]
     message: String,
 
-    #[structopt(short, long)]
     /// Default value for the prompt is `true`
+    #[structopt(short, long)]
     default: bool,
     // TODO: Validation
     // #[structopt(short, long)]
