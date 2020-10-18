@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+
+### BREAKING
+* Removed `ColoredTheme` from lib in favor of `dialoguer::ColorfulTheme`
+
 ## 0.3.0
 
 ### Enhancements
@@ -7,7 +12,7 @@
 * Added `select` subcommand
 * Added `sort` subcommand
 
-### Breaking
+### BREAKING
 * Removed versions from subcommands
 
 ## 0.2.0
@@ -15,7 +20,7 @@
 ### Enhancements
 * Added `secret` subcommand
 
-### Breaking
+### BREAKING
 * Changed structure of the theme
 
 ## 0.1.0

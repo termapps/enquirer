@@ -5,7 +5,7 @@ mod secret;
 mod select;
 mod sort;
 
-use console::set_colors_enabled;
+use dialoguer::console::set_colors_enabled;
 use structopt::{clap::AppSettings, StructOpt};
 
 /// Command Line Utility for Stylish Interactive Prompts
