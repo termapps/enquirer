@@ -1,0 +1,115 @@
+env:
+  NAME: enquirer
+name: Release
+on:
+  push:
+    tags: [v*]
+jobs:
+  create-release:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create-release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+  read-version:
+    name: Read version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+    steps:
+      - name: Read version
+        id: version
+        env:
+          REF: ${{ github.ref }}
+        shell: bash
+        run: echo ::set-output name=VERSION::${REF/refs\/tags\//}
+  build-upload:
+    name: Build & Upload
+    needs: [create-release, read-version]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: x86_64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: ubuntu-latest
+            target: i686-unknown-linux-gnu
+          - os: windows-latest
+            target: i686-pc-windows-msvc
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+          # - i686-pc-windows-gnu
+          # - x86_64-pc-windows-gnu
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+      - name: Install linker
+        if: matrix.target == 'i686-unknown-linux-gnu'
+        run: sudo apt-get install gcc-5-multilib lib32gcc-5-dev
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+            command: build
+            args: --target ${{ matrix.target }} --release
+      - name: Set variables
+        id: vars
+        env:
+          BUILD_NAME: ${{ env.NAME }}-${{ needs.read-version.outputs.version }}-${{ matrix.target }}
+        shell: bash
+        run: echo ::set-output name=BUILD_NAME::$BUILD_NAME
+      - name: Ready artifacts
+        env:
+          BUILD_NAME: ${{ steps.vars.outputs.BUILD_NAME }}
+          TARGET: ${{ matrix.target }}
+        shell: bash
+        run: |
+          mkdir $BUILD_NAME
+          cp target/$TARGET/release/$NAME LICENSE *.md $NAME.1 $BUILD_NAME
+      - name: Compress artifacts
+        uses: papeloto/action-zip@v1
+        with:
+          files: ${{ steps.vars.outputs.BUILD_NAME }}/
+          recursive: false
+          dest: ${{ steps.vars.outputs.BUILD_NAME }}.zip
+      - name: Upload artifacts
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: ./${{ steps.vars.outputs.BUILD_NAME }}.zip
+          asset_name: ${{ steps.vars.outputs.BUILD_NAME }}.zip
+          asset_content_type: application/zip
+  homebrew:
+    name: Homebrew
+    needs: [build-upload, read-version]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v2
+        with:
+          repository: termapps/homebrew-tap
+          ssh-key: ${{ secrets.HOMEBREW_SSH_DEPLOY_KEY }}
+      - name: Update forumla
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ needs.read-version.outputs.version }}
+        run: bash update.sh
