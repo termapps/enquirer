@@ -34,8 +34,7 @@ Get started with Enquirer, the most powerful command line utility for creating i
 ### With [Homebrew](https://brew.sh/)
 
 ```
-$ brew tap termapps/tap
-$ brew install enquirer
+$ brew install termapps/tap/enquirer
 ```
 
 This is recommended way for installation on macOS since updating to the new version is easy.
