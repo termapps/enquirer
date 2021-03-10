@@ -1,0 +1,25 @@
+[package]
+name    = "cli-clap"
+version = "0.0.1"
+
+authors     = ["Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"]
+description = "A simple CLI application using clap"
+homepage    = "https://github.com/termapps/cli-clap"
+repository  = "https://github.com/termapps/cli-clap"
+
+edition      = "2021"
+rust-version = "1.67.0"
+
+categories = ["command-line-utilities"]
+license    = "MIT"
+readme     = "README.md"
+
+[dependencies]
+clap = { version = "~4.1.8", features = ["derive", "wrap_help"] }
+
+[[bin]]
+name = "cli-clap"
+path = "src/main.rs"
+
+[profile.release]
+lto = "thin"
