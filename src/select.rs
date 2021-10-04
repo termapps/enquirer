@@ -14,6 +14,10 @@ pub struct Select {
     #[structopt(short, long)]
     paged: bool,
 
+    /// Returns index of the selected item instead of item itself
+    #[structopt(short, long)]
+    index: bool,
+
     /// Specify number of the item that will be selected by default
     #[structopt(short, long)]
     selected: Option<usize>,
@@ -45,7 +49,11 @@ impl Select {
 
         let value = input.interact()?;
 
-        println!("{}", self.items[value]);
+        if self.index {
+            println!("{}", value);
+        } else {
+            println!("{}", self.items[value]);
+        }
 
         Ok(())
     }

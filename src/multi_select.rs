@@ -14,6 +14,10 @@ pub struct MultiSelect {
     #[structopt(short, long)]
     paged: bool,
 
+    /// Returns index of the selected items instead of items itself
+    #[structopt(short, long)]
+    index: bool,
+
     /// Do not print the selected items on the prompt line
     #[structopt(long)]
     no_inline: bool,
@@ -61,8 +65,14 @@ impl MultiSelect {
 
         let value = input.interact()?;
 
-        for i in value {
-            println!("{}", self.items[i]);
+        if self.index {
+            for i in value {
+                println!("{}", i);
+            }
+        } else {
+            for i in value {
+                println!("{}", self.items[i]);
+            }
         }
 
         Ok(())
