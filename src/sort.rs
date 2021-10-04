@@ -14,7 +14,7 @@ pub struct Sort {
     #[structopt(short, long)]
     paged: bool,
 
-    /// Returns index of the selected item instead of item itself
+    /// Returns index of the sorted items instead of items itself
     #[structopt(short, long)]
     index: bool,
 

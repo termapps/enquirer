@@ -215,7 +215,7 @@ Prompt that allows the user to select from a list of options
 #### Usage
 
 ```
-enquirer-select 0.3.0
+enquirer-select 0.5.0
 Prompt that allows the user to select from a list of options
 
 USAGE:
@@ -223,6 +223,7 @@ USAGE:
 
 FLAGS:
     -h, --help     Prints help information
+    -i, --index    Returns index of the selected item instead of item itself
     -p, --paged    Enables paging. Uses your terminal size
 
 OPTIONS:
@@ -244,7 +245,7 @@ Prompt that allows the user to select multiple items from a list of options
 #### Usage
 
 ```
-enquirer-multi-select 0.3.0
+enquirer-multi-select 0.5.0
 Prompt that allows the user to select multiple items from a list of options
 
 USAGE:
@@ -252,6 +253,7 @@ USAGE:
 
 FLAGS:
     -h, --help         Prints help information
+    -i, --index        Returns index of the selected items instead of items itself
         --no-inline    Do not print the selected items on the prompt line
     -p, --paged        Enables paging. Uses your terminal size
 
@@ -274,7 +276,7 @@ Prompt that allows the user to sort items in a list
 #### Usage
 
 ```
-enquirer-sort 0.3.0
+enquirer-sort 0.5.0
 Prompt that allows the user to sort items in a list
 
 USAGE:
@@ -282,6 +284,7 @@ USAGE:
 
 FLAGS:
     -h, --help         Prints help information
+    -i, --index        Returns index of the sorted items instead of items itself
         --no-inline    Do not print the sorted items on the prompt line
     -p, --paged        Enables paging. Uses your terminal size
 
