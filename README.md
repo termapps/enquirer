@@ -1,9 +1,6 @@
 <h1 align="center">enquirer</h1>
 
 <p align="center">
-  <a href="https://travis-ci.org/termapps/enquirer">
-    <img alt="Travis" src="https://img.shields.io/travis/termapps/enquirer?style=flat-square" alt="travis">
-  </a>
   <a href="https://termapps.zulipchat.com/#narrow/stream/220422-enquirer">
     <img alt="Zulip" src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg?style=flat-square">
   </a>
