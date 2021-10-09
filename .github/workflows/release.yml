@@ -63,7 +63,7 @@ jobs:
           override: true
       - name: Install linker
         if: matrix.target == 'i686-unknown-linux-gnu'
-        run: sudo apt-get install gcc-5-multilib lib32gcc-5-dev
+        run: sudo apt-get install gcc-multilib
       - name: Build
         uses: actions-rs/cargo@v1
         with:
