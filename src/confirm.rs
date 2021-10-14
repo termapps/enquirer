@@ -10,6 +10,10 @@ pub struct Confirm {
     #[structopt(short, long)]
     message: String,
 
+    /// Makes the prompt cancellable with 'Esc' or 'q'
+    #[structopt(short, long)]
+    cancel: bool,
+
     /// Default value for the prompt is `true`
     #[structopt(short, long)]
     default: bool,
@@ -21,10 +25,21 @@ pub struct Confirm {
 
 impl Confirm {
     pub fn run(&self) -> Result<()> {
-        let value = dialoguer::Confirm::with_theme(&ColorfulTheme::default())
-            .with_prompt(&self.message)
-            .default(self.default)
-            .interact()?;
+        let theme = ColorfulTheme::default();
+        let mut input = dialoguer::Confirm::with_theme(&theme);
+
+        input.with_prompt(&self.message).default(self.default);
+
+        let ret = if self.cancel {
+            input.interact_opt()?
+        } else {
+            Some(input.interact()?)
+        };
+
+        let value = match ret {
+            Some(value) => value,
+            None => std::process::exit(1),
+        };
 
         if value {
             println!("true");

@@ -10,9 +10,9 @@ pub struct Select {
     #[structopt(short, long)]
     message: String,
 
-    /// Enables paging. Uses your terminal size
+    /// Makes the prompt cancellable with 'Esc' or 'q'
     #[structopt(short, long)]
-    paged: bool,
+    cancel: bool,
 
     /// Returns index of the selected item instead of item itself
     #[structopt(short, long)]
@@ -39,7 +39,6 @@ impl Select {
 
         input
             .with_prompt(&self.message)
-            .paged(self.paged)
             .clear(true)
             .items(&self.items);
 
@@ -47,7 +46,16 @@ impl Select {
             input.default(self.selected.unwrap() - 1);
         }
 
-        let value = input.interact()?;
+        let ret = if self.cancel {
+            input.interact_opt()?
+        } else {
+            Some(input.interact()?)
+        };
+
+        let value = match ret {
+            Some(value) => value,
+            None => std::process::exit(1),
+        };
 
         if self.index {
             println!("{}", value);
