@@ -32,7 +32,7 @@ impl Confirm {
         let ret = if self.cancel {
             input.interact_opt()?
         } else {
-            Some(input.interact()?)
+            input.interact().ok()
         };
 
         let value = match ret {
