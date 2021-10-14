@@ -14,6 +14,14 @@ pub struct MultiSelect {
     #[structopt(short, long)]
     paged: bool,
 
+    /// Makes the prompt cancellable with 'Esc' or 'q'.
+    #[structopt(short, long)]
+    cancel: bool,
+
+    /// Makes the prompt return default values provided with --selected option if --cancel option is present.
+    #[structopt(short = "d", long = "default")]
+    return_default: bool,
+
     /// Returns index of the selected items instead of items itself
     #[structopt(short, long)]
     index: bool,
@@ -63,7 +71,21 @@ impl MultiSelect {
             .items(&self.items)
             .defaults(&defaults);
 
-        let value = input.interact()?;
+        let ret = if self.cancel {
+            input.interact_opt()?
+        } else {
+            Some(input.interact()?)
+        };
+
+        let value = match ret {
+            Some(value) => value,
+            None if self.return_default => defaults
+                .into_iter()
+                .enumerate()
+                .filter_map(|(i, v)| if v { Some(i) } else { None })
+                .collect(),
+            None => std::process::exit(1),
+        };
 
         if self.index {
             for i in value {
