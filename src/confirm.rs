@@ -14,7 +14,7 @@ pub struct Confirm {
     #[structopt(short, long)]
     cancel: bool,
 
-    /// Default value for the prompt is `true`
+    /// Sets the default value for the prompt as `true`
     #[structopt(short, long)]
     default: bool,
     // TODO: Validation

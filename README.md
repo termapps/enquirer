@@ -142,7 +142,7 @@ USAGE:
 
 FLAGS:
     -c, --cancel     Makes the prompt cancellable with 'Esc' or 'q'
-    -d, --default    Default value for the prompt is `true`
+    -d, --default    Sets the default value for the prompt as `true`
     -h, --help       Prints help information
 
 OPTIONS:
