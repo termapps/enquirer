@@ -10,7 +10,7 @@ pub struct Select {
     #[structopt(short, long)]
     message: String,
 
-    /// Makes the prompt cancellable with 'Esc' or 'q'.
+    /// Makes the prompt cancellable with 'Esc' or 'q'
     #[structopt(short, long)]
     cancel: bool,
 

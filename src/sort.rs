@@ -10,11 +10,11 @@ pub struct Sort {
     #[structopt(short, long)]
     message: String,
 
-    /// Makes the prompt cancellable with 'Esc' or 'q'.
+    /// Makes the prompt cancellable with 'Esc' or 'q'
     #[structopt(short, long)]
     cancel: bool,
 
-    /// Makes the prompt return default order as given if --cancel option is present.
+    /// Makes the prompt return default order as given if --cancel option is present
     #[structopt(short = "d", long = "default")]
     return_default: bool,
 

@@ -10,7 +10,7 @@ pub struct Confirm {
     #[structopt(short, long)]
     message: String,
 
-    /// Makes the prompt cancellable with 'Esc' or 'q'.
+    /// Makes the prompt cancellable with 'Esc' or 'q'
     #[structopt(short, long)]
     cancel: bool,
 
@@ -38,7 +38,7 @@ impl Confirm {
 
         let value = match ret {
             Some(value) => value,
-            None => self.default,
+            None => std::process::exit(1),
         };
 
         if value {
