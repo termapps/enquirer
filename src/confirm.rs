@@ -27,10 +27,8 @@ impl Confirm {
     pub fn run(&self) -> Result<()> {
         let theme = ColorfulTheme::default();
         let mut input = dialoguer::Confirm::with_theme(&theme);
-            
-        input
-            .with_prompt(&self.message)
-            .default(self.default);
+
+        input.with_prompt(&self.message).default(self.default);
 
         let ret = if self.cancel {
             input.interact_opt()?
