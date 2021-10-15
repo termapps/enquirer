@@ -14,7 +14,7 @@ pub struct MultiSelect {
     #[structopt(short, long)]
     cancel: bool,
 
-    /// Makes the prompt return default values provided with --selected option if --cancel option is present
+    /// Makes the prompt return default values as given if --cancel option is present
     #[structopt(short = "d", long = "default")]
     return_default: bool,
 
