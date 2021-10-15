@@ -25,14 +25,17 @@ pub struct Confirm {
 
 impl Confirm {
     pub fn run(&self) -> Result<()> {
-        let input = dialoguer::Confirm::with_theme(&ColorfulTheme::default())
+        let theme = ColorfulTheme::default();
+        let mut input = dialoguer::Confirm::with_theme(&theme);
+            
+        input
             .with_prompt(&self.message)
             .default(self.default);
 
         let ret = if self.cancel {
             input.interact_opt()?
         } else {
-            input.interact().ok()
+            Some(input.interact()?)
         };
 
         let value = match ret {

@@ -10,10 +10,6 @@ pub struct MultiSelect {
     #[structopt(short, long)]
     message: String,
 
-    /// Enables paging. Uses your terminal size
-    #[structopt(short, long)]
-    paged: bool,
-
     /// Makes the prompt cancellable with 'Esc' or 'q'.
     #[structopt(short, long)]
     cancel: bool,
@@ -66,7 +62,6 @@ impl MultiSelect {
 
         input
             .with_prompt(&self.message)
-            .paged(self.paged)
             .clear(true)
             .items(&self.items)
             .defaults(&defaults);
@@ -74,7 +69,7 @@ impl MultiSelect {
         let ret = if self.cancel {
             input.interact_opt()?
         } else {
-            input.interact().ok()
+            Some(input.interact()?)
         };
 
         let value = match ret {

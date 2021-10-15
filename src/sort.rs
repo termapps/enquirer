@@ -10,10 +10,6 @@ pub struct Sort {
     #[structopt(short, long)]
     message: String,
 
-    /// Enables paging. Uses your terminal size
-    #[structopt(short, long)]
-    paged: bool,
-
     /// Makes the prompt cancellable with 'Esc' or 'q'.
     #[structopt(short, long)]
     cancel: bool,
@@ -51,19 +47,18 @@ impl Sort {
 
         input
             .with_prompt(&self.message)
-            .paged(self.paged)
             .clear(true)
             .items(&self.items);
 
         let ret = if self.cancel {
             input.interact_opt()?
         } else {
-            input.interact().ok()
+            Some(input.interact()?)
         };
 
         let value = match ret {
             Some(value) => value,
-            None if self.return_default => 0..self.items.len(),
+            None if self.return_default => (0..self.items.len()).collect(),
             None => std::process::exit(1),
         };
 

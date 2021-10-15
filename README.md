@@ -72,7 +72,7 @@ fi
 See [prompts](#prompts) for more information on subcommands.
 
 ```
-enquirer 0.3.0
+enquirer 0.5.1
 Command Line Utility for Stylish Interactive Prompts
 
 USAGE:
@@ -99,7 +99,7 @@ If you want the dialoguer theme used in this tool you can add this package to yo
 
 ```rust
 use dialoguer::Confirmation;
-use enquirer::ColoredTheme;
+use dialoguer::theme::ColoredTheme;
 
 fn main() {
     let prompt = Confirmation::with_theme(&ColoredTheme::default())
@@ -134,18 +134,19 @@ Prompt that returns `true` or `false` (as strings)
 #### Usage
 
 ```
-enquirer-confirm 0.3.0
+enquirer-confirm 0.5.1
 Prompt that returns `true` or `false` (as strings)
 
 USAGE:
-    enquirer confirm [FLAGS] [OPTIONS] --message <message>
+    enquirer confirm [FLAGS] --message <message>
 
 FLAGS:
+    -c, --cancel     Makes the prompt cancellable with 'Esc' or 'q'
     -d, --default    Default value for the prompt is `true`
     -h, --help       Prints help information
 
 OPTIONS:
-    -m, --message <message>      Message for the prompt
+    -m, --message <message>    Message for the prompt
 ```
 
 ### Input Prompt
@@ -159,7 +160,7 @@ Prompt that takes user input and returns a string
 #### Usage
 
 ```
-enquirer-input 0.3.0
+enquirer-input 0.5.1
 Prompt that takes user input and returns a string
 
 USAGE:
@@ -185,7 +186,7 @@ Prompt that takes user input, hides it from the terminal, and returns a string
 #### Usage
 
 ```
-enquirer-secret 0.3.0
+enquirer-secret 0.5.1
 Prompt that takes user input, hides it from the terminal, and returns a string
 
 USAGE:
@@ -212,16 +213,16 @@ Prompt that allows the user to select from a list of options
 #### Usage
 
 ```
-enquirer-select 0.5.0
+enquirer-select 0.5.1
 Prompt that allows the user to select from a list of options
 
 USAGE:
     enquirer select [FLAGS] [OPTIONS] --message <message> [items]...
 
 FLAGS:
-    -h, --help     Prints help information
-    -i, --index    Returns index of the selected item instead of item itself
-    -p, --paged    Enables paging. Uses your terminal size
+    -c, --cancel    Makes the prompt cancellable with 'Esc' or 'q'
+    -h, --help      Prints help information
+    -i, --index     Returns index of the selected item instead of item itself
 
 OPTIONS:
     -m, --message <message>      Message for the prompt
@@ -242,17 +243,19 @@ Prompt that allows the user to select multiple items from a list of options
 #### Usage
 
 ```
-enquirer-multi-select 0.5.0
+enquirer-multi-select 0.5.1
 Prompt that allows the user to select multiple items from a list of options
 
 USAGE:
     enquirer multi-select [FLAGS] [OPTIONS] --message <message> [--] [items]...
 
 FLAGS:
+    -c, --cancel       Makes the prompt cancellable with 'Esc' or 'q'
     -h, --help         Prints help information
     -i, --index        Returns index of the selected items instead of items itself
         --no-inline    Do not print the selected items on the prompt line
-    -p, --paged        Enables paging. Uses your terminal size
+    -d, --default      Makes the prompt return default values provided with --selected option if --cancel option is
+                       present
 
 OPTIONS:
     -m, --message <message>         Message for the prompt
@@ -273,17 +276,18 @@ Prompt that allows the user to sort items in a list
 #### Usage
 
 ```
-enquirer-sort 0.5.0
+enquirer-sort 0.5.1
 Prompt that allows the user to sort items in a list
 
 USAGE:
     enquirer sort [FLAGS] --message <message> [items]...
 
 FLAGS:
+    -c, --cancel       Makes the prompt cancellable with 'Esc' or 'q'
     -h, --help         Prints help information
     -i, --index        Returns index of the sorted items instead of items itself
         --no-inline    Do not print the sorted items on the prompt line
-    -p, --paged        Enables paging. Uses your terminal size
+    -d, --default      Makes the prompt return default order as given if --cancel option is present
 
 OPTIONS:
     -m, --message <message>    Message for the prompt

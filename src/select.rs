@@ -10,10 +10,6 @@ pub struct Select {
     #[structopt(short, long)]
     message: String,
 
-    /// Enables paging. Uses your terminal size
-    #[structopt(short, long)]
-    paged: bool,
-
     /// Makes the prompt cancellable with 'Esc' or 'q'.
     #[structopt(short, long)]
     cancel: bool,
@@ -43,7 +39,6 @@ impl Select {
 
         input
             .with_prompt(&self.message)
-            .paged(self.paged)
             .clear(true)
             .items(&self.items);
 
@@ -54,7 +49,7 @@ impl Select {
         let ret = if self.cancel {
             input.interact_opt()?
         } else {
-            input.interact().ok()
+            Some(input.interact()?)
         };
 
         let value = match ret {
