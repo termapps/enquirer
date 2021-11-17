@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0
+
+### BREAKING
+* Removed library completely
+
 ## 0.5.0
 
 ### BREAKING

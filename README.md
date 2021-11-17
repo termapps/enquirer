@@ -93,27 +93,6 @@ SUBCOMMANDS:
     sort            Prompt that allows the user to sort items in a list
 ```
 
-### Library
-
-If you want the dialoguer theme used in this tool you can add this package to your `Cargo.toml`
-
-```rust
-use dialoguer::Confirmation;
-use dialoguer::theme::ColoredTheme;
-
-fn main() {
-    let prompt = Confirmation::with_theme(&ColoredTheme::default())
-        .with_text("Do you want to continue?")
-        .with_default(true);
-
-    if prompt.interact()? {
-        println!("Looks like you want to continue");
-    } else {
-        println!("nevermind then :(");
-    }
-}
-```
-
 ## Prompts
 
 * [Confirm Prompt](#confirm-prompt)

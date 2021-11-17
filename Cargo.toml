@@ -10,9 +10,6 @@ readme = "README.md"
 license = "MIT"
 include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "*.md"]
 
-[badges]
-maintenance = { status = "actively-developed" }
-
 [dependencies]
 dialoguer = "0.9.0"
 structopt = "0.3.7"
@@ -20,11 +17,6 @@ structopt = "0.3.7"
 [[bin]]
 name = "enquirer"
 path = "src/main.rs"
-
-[lib]
-name = "enquirer"
-path = "src/lib.rs"
-doctest = false
 
 [profile.release]
 lto = "thin"
