@@ -8,7 +8,7 @@ mod sort;
 use dialoguer::console::set_colors_enabled;
 use structopt::{clap::AppSettings, StructOpt};
 
-/// Command Line Utility for Stylish Interactive Prompts
+/// Command line utility for stylish interactive prompts
 #[derive(Debug, StructOpt)]
 #[structopt(name = "enquirer")]
 #[structopt(global_setting = AppSettings::VersionlessSubcommands)]

@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <b>Command Line Utility for Stylish Interactive Prompts</b>
+  <b>Command line utility for stylish interactive prompts</b>
   <br>
   <sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
