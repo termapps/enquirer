@@ -3,7 +3,7 @@
 ## 0.6.0
 
 ### Enhancements
-* Added `--cancel` and `--default` options to `select`, `sort` and `multi-select` commands
+* Added `--cancel` and `--default` options to `select`, `sort` and `multi-select` subcommands
 
 ### BREAKING
 * Removed library completely
