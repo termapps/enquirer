@@ -20,3 +20,6 @@ path = "src/main.rs"
 
 [profile.release]
 lto = "thin"
+
+[workspace.metadata.workspaces]
+no_individual_tags = true
