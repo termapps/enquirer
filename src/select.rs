@@ -14,6 +14,10 @@ pub struct Select {
     #[clap(short, long)]
     cancel: bool,
 
+    /// Makes the prompt return default order as given if --cancel option is present
+    #[clap(short = 'd', long = "default", requires_all = &["cancel", "selected"])]
+    return_default: bool,
+
     /// Returns index of the selected item instead of item itself
     #[clap(short, long)]
     index: bool,
@@ -42,8 +46,10 @@ impl Select {
             .clear(true)
             .items(&self.items);
 
-        if self.selected.is_some() {
-            input.default(self.selected.unwrap() - 1);
+        let selected = self.selected.map(|i| i - 1);
+
+        if let Some(index) = selected {
+            input.default(index);
         }
 
         let ret = if self.cancel {
@@ -54,6 +60,7 @@ impl Select {
 
         let value = match ret {
             Some(value) => value,
+            None if self.return_default && selected.is_some() => selected.unwrap(),
             None => std::process::exit(1),
         };
 

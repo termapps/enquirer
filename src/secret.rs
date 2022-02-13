@@ -3,7 +3,7 @@ use dialoguer::theme::ColorfulTheme;
 
 use std::io::Result;
 
-/// Prompt that takes user input, hides it from the terminal, and returns a string
+/// Prompt that takes user input without showing it and returns a string
 #[derive(Debug, Parser)]
 pub struct Secret {
     /// Message for the prompt

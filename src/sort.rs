@@ -15,7 +15,7 @@ pub struct Sort {
     cancel: bool,
 
     /// Makes the prompt return default order as given if --cancel option is present
-    #[clap(short = 'd', long = "default")]
+    #[clap(short = 'd', long = "default", requires = "cancel")]
     return_default: bool,
 
     /// Returns index of the sorted items instead of items itself
