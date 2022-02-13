@@ -1,33 +1,33 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::{io::Result, iter::repeat};
 
 /// Prompt that allows the user to select multiple items from a list of options
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct MultiSelect {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Makes the prompt cancellable with 'Esc' or 'q'
-    #[structopt(short, long)]
+    #[clap(short, long)]
     cancel: bool,
 
     /// Makes the prompt return default values as given if --cancel option is present
-    #[structopt(short = "d", long = "default")]
+    #[clap(short = 'd', long = "default")]
     return_default: bool,
 
     /// Returns index of the selected items instead of items itself
-    #[structopt(short, long)]
+    #[clap(short, long)]
     index: bool,
 
     /// Do not print the selected items on the prompt line
-    #[structopt(long)]
+    #[clap(long)]
     no_inline: bool,
 
     /// Specify numbers of items that will be selected by default
-    #[structopt(short, long)]
+    #[clap(short, long)]
     selected: Vec<usize>,
 
     /// Items that can be selected

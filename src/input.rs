@@ -1,21 +1,21 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::io::Result;
 
 /// Prompt that takes user input and returns a string.
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Input {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Default value for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     default: Option<String>,
 
     /// Allow empty input. Conflicts with `default`
-    #[structopt(short, long, conflicts_with = "default")]
+    #[clap(short, long, conflicts_with = "default")]
     allow_empty: bool,
 }
 

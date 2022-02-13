@@ -1,25 +1,25 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::io::Result;
 
 /// Prompt that allows the user to select from a list of options
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Select {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Makes the prompt cancellable with 'Esc' or 'q'
-    #[structopt(short, long)]
+    #[clap(short, long)]
     cancel: bool,
 
     /// Returns index of the selected item instead of item itself
-    #[structopt(short, long)]
+    #[clap(short, long)]
     index: bool,
 
     /// Specify number of the item that will be selected by default
-    #[structopt(short, long)]
+    #[clap(short, long)]
     selected: Option<usize>,
 
     /// Items that can be selected

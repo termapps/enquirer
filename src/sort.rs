@@ -1,29 +1,29 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::io::Result;
 
 /// Prompt that allows the user to sort items in a list
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Sort {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Makes the prompt cancellable with 'Esc' or 'q'
-    #[structopt(short, long)]
+    #[clap(short, long)]
     cancel: bool,
 
     /// Makes the prompt return default order as given if --cancel option is present
-    #[structopt(short = "d", long = "default")]
+    #[clap(short = 'd', long = "default")]
     return_default: bool,
 
     /// Returns index of the sorted items instead of items itself
-    #[structopt(short, long)]
+    #[clap(short, long)]
     index: bool,
 
     /// Do not print the sorted items on the prompt line
-    #[structopt(long)]
+    #[clap(long)]
     no_inline: bool,
 
     /// Items that can be sorted

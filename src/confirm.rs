@@ -1,24 +1,24 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::io::Result;
 
 /// Prompt that returns `true` or `false` (as strings)
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Confirm {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Makes the prompt cancellable with 'Esc' or 'q'
-    #[structopt(short, long)]
+    #[clap(short, long)]
     cancel: bool,
 
     /// Sets the default value for the prompt as `true`
-    #[structopt(short, long)]
+    #[clap(short, long)]
     default: bool,
     // TODO: Validation
-    // #[structopt(short, long)]
+    // #[clap(short, long)]
     // /// Command to validate the submitted value
     // validate: Option<String>,
 }

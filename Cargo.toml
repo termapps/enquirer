@@ -11,8 +11,8 @@ license = "MIT"
 include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "*.md"]
 
 [dependencies]
-dialoguer = "0.9.0"
-structopt = "0.3.7"
+dialoguer = "0.10.0"
+clap = { version = "~3.0.0", features = ["derive"] }
 
 [[bin]]
 name = "enquirer"

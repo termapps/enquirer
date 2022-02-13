@@ -1,25 +1,25 @@
+use clap::Parser;
 use dialoguer::theme::ColorfulTheme;
-use structopt::StructOpt;
 
 use std::io::Result;
 
 /// Prompt that takes user input, hides it from the terminal, and returns a string
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Secret {
     /// Message for the prompt
-    #[structopt(short, long)]
+    #[clap(short, long)]
     message: String,
 
     /// Enable confirmation prompt with this message
-    #[structopt(short, long, requires = "error")]
+    #[clap(short, long, requires = "error")]
     confirm: Option<String>,
 
     /// Error message when secrets doesn't match during confirmation
-    #[structopt(short, long, requires = "confirm")]
+    #[clap(short, long, requires = "confirm")]
     error: Option<String>,
 
     /// Allow empty secret
-    #[structopt(short, long)]
+    #[clap(short, long)]
     allow_empty: bool,
 }
 
