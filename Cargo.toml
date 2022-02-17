@@ -1,6 +1,6 @@
 [package]
 name = "enquirer"
-version = "0.6.0"
+version = "0.6.1"
 authors = ["Pavan Kumar Sunkara <pavan.sss1991@gmail.com>"]
 edition = "2018"
 description = "Command line utility for stylish interactive prompts"
@@ -12,7 +12,7 @@ include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "*.md"]
 
 [dependencies]
 dialoguer = "0.10.0"
-clap = { version = "~3.0.0", features = ["derive"] }
+clap = { version = "~3.1.0", features = ["derive", "wrap_help"] }
 
 [[bin]]
 name = "enquirer"
