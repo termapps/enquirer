@@ -15,40 +15,46 @@
   <sub>(uses <a href="https://github.com/mitsuhiko/dialoguer">dialoguer</a> underneath)</sub>
 </p>
 
+<!-- omit from toc -->
 ## Getting started
 
-Get started with Enquirer, the most powerful command line utility for creating interactive CLI prompts.
+1. [Install](#install)
+2. [Usage](#usage)
+   1. [Command Line Utility](#command-line-utility)
+3. [Prompts](#prompts)
+   1. [Confirm Prompt](#confirm-prompt)
+   2. [Input Prompt](#input-prompt)
+   3. [Secret Prompt](#secret-prompt)
+   4. [Select Prompt](#select-prompt)
+   5. [Multi Select Prompt](#multi-select-prompt)
+   6. [Sort Prompt](#sort-prompt)
+4. [Changelog](#changelog)
 
-* [Install](#install)
-* [Usage](#usage)
-* [Prompts](#prompts)
-* [About](#about)
 
 ## Install
 
 `enquirer` is available on Linux, macOS
 
+<!-- omit from toc -->
 ### With [Homebrew](https://brew.sh/)
 
 ```
 $ brew install termapps/tap/enquirer
 ```
 
-This is recommended way for installation on macOS since updating to the new version is easy.
-
+<!-- omit from toc -->
 ### With [cargo](https://crates.io/)
 
 ```
 $ cargo install enquirer
 ```
 
+<!-- omit from toc -->
 ### Direct
 
 Pre-built binary executables are available at [releases page](https://github.com/termapps/enquirer/releases) for macOS (64bit), Linux (64bit, 32bit).
 
 Download and unarchive the binary then put the executable in `$PATH`.
-
-> Check [roadmap](#roadmap) for other ways
 
 ## Usage
 
@@ -95,13 +101,6 @@ SUBCOMMANDS:
 
 ## Prompts
 
-* [Confirm Prompt](#confirm-prompt)
-* [Input Prompt](#input-prompt)
-* [Secret Prompt](#secret-prompt)
-* [Select Prompt](#select-prompt)
-* [Multi Select Prompt](#multi-select-prompt)
-* [Sort Prompt](#sort-prompt)
-
 ### Confirm Prompt
 
 Prompt that returns `true` or `false` (as strings)
@@ -110,6 +109,7 @@ Prompt that returns `true` or `false` (as strings)
   <img src="media/confirm.svg" alt="Enquirer Confirm Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -136,6 +136,7 @@ Prompt that takes user input and returns a string
   <img src="media/input.svg" alt="Enquirer Input Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -162,6 +163,7 @@ Prompt that takes user input, hides it from the terminal, and returns a string
   <img src="media/secret.svg" alt="Enquirer Secret Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -189,6 +191,7 @@ Prompt that allows the user to select from a list of options
   <img src="media/select.svg" alt="Enquirer Select Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -219,6 +222,7 @@ Prompt that allows the user to select multiple items from a list of options
   <img src="media/multi-select.svg" alt="Enquirer Multi Select Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -251,6 +255,7 @@ Prompt that allows the user to sort items in a list
   <img src="media/sort.svg" alt="Enquirer Sort Prompt" width="750">
 </p>
 
+<!-- omit from toc -->
 #### Usage
 
 ```
@@ -274,9 +279,12 @@ ARGS:
     <items>...    Items that can be sorted
 ```
 
-## About
+<!-- omit from toc -->
+## Contributors
+Here is a list of [Contributors](http://github.com/termapps/enquirer/contributors)
 
-### Roadmap
+<!-- omit from toc -->
+### TODO
 
 * [Man page generation](https://github.com/clap-rs/clap/issues/552)
 * Packaging for other operating systems
@@ -284,21 +292,20 @@ ARGS:
 * [Snippet Prompt](https://github.com/enquirer/enquirer#snippet-prompt)
 * [Export hooks for Clap](https://github.com/clap-rs/clap/issues/1471)
 
-#### Dialoguer issues
-
-* Select and Multi-Select prompts cursors are after the items list while waiting for user. Maybe change them to be on prompt line.
-
-### Changelog
+## Changelog
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 
-### License
+<!-- omit from toc -->
+## License
 MIT/X11
 
-### Bug Reports
+<!-- omit from toc -->
+## Bug Reports
 Report [here](http://github.com/termapps/enquirer/issues).
 
-### Creator
+<!-- omit from toc -->
+## Creator
 Pavan Kumar Sunkara (pavan.sss1991@gmail.com)
 
 Follow me on [github](https://github.com/users/follow?target=pksunkara), [twitter](http://twitter.com/pksunkara)

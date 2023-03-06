@@ -11,9 +11,9 @@ use dialoguer::console::set_colors_enabled;
 /// Command line utility for stylish interactive prompts
 #[derive(Debug, Parser)]
 #[clap(name = "enquirer", version)]
-struct Enquirer {
+struct App {
     #[clap(subcommand)]
-    cmd: EnquirerSubcommand,
+    cmd: Subcommands,
 
     /// Disable colors in the prompt
     #[clap(long)]
@@ -21,7 +21,7 @@ struct Enquirer {
 }
 
 #[derive(Debug, Parser)]
-enum EnquirerSubcommand {
+enum Subcommands {
     Confirm(confirm::Confirm),
     Input(input::Input),
     Secret(secret::Secret),
@@ -32,16 +32,16 @@ enum EnquirerSubcommand {
 
 fn main() {
     // TODO: Specify height for selection prompts (like fzf)
-    let program = Enquirer::parse();
+    let program = App::parse();
     set_colors_enabled(!program.no_color);
 
     match program.cmd {
-        EnquirerSubcommand::Confirm(x) => x.run(),
-        EnquirerSubcommand::Input(x) => x.run(),
-        EnquirerSubcommand::Secret(x) => x.run(),
-        EnquirerSubcommand::MultiSelect(x) => x.run(),
-        EnquirerSubcommand::Select(x) => x.run(),
-        EnquirerSubcommand::Sort(x) => x.run(),
+        Subcommands::Confirm(x) => x.run(),
+        Subcommands::Input(x) => x.run(),
+        Subcommands::Secret(x) => x.run(),
+        Subcommands::MultiSelect(x) => x.run(),
+        Subcommands::Select(x) => x.run(),
+        Subcommands::Sort(x) => x.run(),
     }
     .unwrap();
 }
