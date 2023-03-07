@@ -293,7 +293,6 @@ Here is a list of [Contributors](http://github.com/termapps/enquirer/contributor
 * [Export hooks for Clap](https://github.com/clap-rs/clap/issues/1471)
 
 ## Changelog
-
 Please see [CHANGELOG.md](CHANGELOG.md).
 
 <!-- omit from toc -->
